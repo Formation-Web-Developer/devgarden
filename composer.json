@@ -1,6 +1,18 @@
 {
+    "name": "devgarden/devgarden",
+    "description": "Projet en groupe pour le passage de l'examen WebForce 3.",
+    "authors": [
+        {
+            "name": "Alan Vion",
+            "email": "pro@neutronstars.fr"
+        },
+        {
+            "name": "Corentin Tailleur",
+            "email": "tailleur.corentin27@gmail.com"
+        }
+    ],
     "type": "project",
-    "license": "proprietary",
+    "license": "Apache-2.0",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
