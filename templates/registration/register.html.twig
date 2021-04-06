@@ -5,10 +5,13 @@
 {% block body %}
 <div class="full-center">
     <div class="ui very padded text container segment ">
-        {{ include('components/_flashes.html.twig') }}
         <h1>Register</h1>
+        {{ include('components/_flashes.html.twig') }}
         <div class="ui divider"></div>
         {{ form(registrationForm) }}
+        <div class="link-auth">
+            <p><a href="{{ path('app_login') }}">Connexion</a></p>
+        </div>
     </div>
 </div>
 {% endblock %}
