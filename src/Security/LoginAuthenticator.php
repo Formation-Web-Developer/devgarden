@@ -3,7 +3,10 @@
 namespace App\Security;
 
 use App\Entity\User;
+use App\Form\LoginFormType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -50,7 +53,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
         $credentials = [
             'email' => $request->request->get('email'),
             'password' => $request->request->get('password'),
-            'csrf_token' => $request->request->get('_csrf_token'),
+            'csrf_token' => $request->request->get('_csrf_token')
         ];
         $request->getSession()->set(
             Security::LAST_USERNAME,
