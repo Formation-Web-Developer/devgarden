@@ -2,6 +2,13 @@ body {
     background-color: lightgray;
 }
 
+/* Nav */
+
+.secondary .ui.dropdown:hover .menu {
+    top: calc(100% - 4px)!important;
+}
+
+
 /*------- Authenticator --------*/
 .full-center {
     min-height: 100vh;

@@ -8,7 +8,8 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
 import 'semantic-ui-css/semantic.min.css';
-
+import 'semantic-ui-css/components/dropdown.min.css';
 // start the Stimulus application
 import './bootstrap';
 import 'semantic-ui-css/semantic.min'
+import 'semantic-ui-css/components/dropdown.min';

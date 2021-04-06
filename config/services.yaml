@@ -6,6 +6,10 @@
 parameters:
 
 services:
+    twig.extension:
+        class: App\Twig\CategoryExtension
+#        tags:
+#            - { name: twig.extension}
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
@@ -20,6 +24,7 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
             - '../src/Tests/'
+            - '../src/Twig/'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
