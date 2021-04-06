@@ -3,12 +3,12 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
-
-    <h1>Register</h1>
-
-    {{ form(registrationForm) }}
-
+<div class="full-center">
+    <div class="ui very padded text container segment ">
+        {{ include('components/_flashes.html.twig') }}
+        <h1>Register</h1>
+        <div class="ui divider"></div>
+        {{ form(registrationForm) }}
+    </div>
+</div>
 {% endblock %}

@@ -3,7 +3,12 @@
 {% block title %}Reset your password{% endblock %}
 
 {% block body %}
-    <h1>Réinitialiser votre mot de passe</h1>
+<div class="full-center">
+    <div class="ui very padded text container segment">
+        {{ include('components/_flashes.html.twig') }}
+        <h1>Réinitialiser votre mot de passe</h1>
+        {{ form(resetForm) }}
+    </div>
+</div>
 
-    {{ form(resetForm) }}
 {% endblock %}
