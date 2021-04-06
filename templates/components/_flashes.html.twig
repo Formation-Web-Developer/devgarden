@@ -1,0 +1,8 @@
+{% for key, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="ui {{ key }} message">
+            <i class="close icon"></i>
+            {{ message|trans([''],'flashes') }}
+        </div>
+    {% endfor %}
+{% endfor %}
