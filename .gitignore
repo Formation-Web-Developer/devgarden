@@ -281,3 +281,4 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 *.lock
+package-lock.json
