@@ -1,0 +1,14 @@
+login:
+  already_authenticate: Vous êtes déjà authentifié.
+register:
+  send_mail: Votre inscription a bien été pris en compte. Veuillez vérifier votre boite mail pour valider votre compte.
+  verify_mail_error: Impossible de vérifier cet email.
+  verify_mail_success: Votre email a bien été vérifié.
+reset-password:
+  send_success: Un email vous as été envoyé pour réinitialiser votre mot de passe.
+  send_error: Une erreur est intervenue lors de votre demande de reinitialisation de mot passe.
+  reset:
+    error: Un problème est survenu lors de la confirmation de reinitialisation de votre mot de passe.
+    success: Votre mot de passe a bien été reinitialisé.
+
+Email could not be found.: Identifiants invalides.
