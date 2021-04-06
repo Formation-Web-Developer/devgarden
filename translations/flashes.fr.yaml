@@ -10,3 +10,5 @@ reset-password:
   reset:
     error: Un problème est survenu lors de la confirmation de reinitialisation de votre mot de passe.
     success: Votre mot de passe a bien été reinitialisé.
+
+Email could not be found.: Identifiants invalides.
