@@ -3,5 +3,24 @@
 {% block title %}{{ resource.name }}{% endblock %}
 
 {% block body %}
-    {{ dump(resource) }}
+    <div class="ui container">
+        <div class="ui celled grid">
+            <div class="row">
+                <div class="three wide column">
+                    <img class="disabled ui avatar medium bordered circular image" src="https://picsum.photos/300/300">
+                </div>
+                <div class="thirteen wide column">
+                    <h1>{{ resource.name }}</h1>
+                    <div class="content">{{ resource.description }}</div>
+                    <p>Créer par : {{ resource.user.name }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui container">
+        <div>
+            {{ resource.content }}
+        </div>
+    </div>
+
 {% endblock %}
