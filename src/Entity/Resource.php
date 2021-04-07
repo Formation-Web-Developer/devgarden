@@ -57,19 +57,25 @@ class Resource
     private $created_at;
 
     /**
-     * @ORM\OneToOne(targetEntity=PatchNote::class, cascade={"persist", "remove"})
-     */
-    private $latest;
-
-    /**
      * @ORM\OneToMany(targetEntity=PatchNote::class, mappedBy="resource", orphanRemoval=true)
      */
     private $patchNotes;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Reaction::class, mappedBy="resource", orphanRemoval=true)
+     */
+    private $reactions;
+
+    /**
+     * @ORM\OneToOne(targetEntity=PatchNote::class, cascade={"remove", "remove"})
+     */
+    private $latest;
 
     public function __construct()
     {
         $this->created_at = new \DateTime();
         $this->patchNotes = new ArrayCollection();
+        $this->reactions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -161,18 +167,6 @@ class Resource
         return $this;
     }
 
-    public function getLatest(): ?PatchNote
-    {
-        return $this->latest;
-    }
-
-    public function setLatest(?PatchNote $latest): self
-    {
-        $this->latest = $latest;
-
-        return $this;
-    }
-
     /**
      * @return Collection|PatchNote[]
      */
@@ -199,6 +193,48 @@ class Resource
                 $patchNote->setResource(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reaction[]
+     */
+    public function getReactions(): Collection
+    {
+        return $this->reactions;
+    }
+
+    public function addReaction(Reaction $reaction): self
+    {
+        if (!$this->reactions->contains($reaction)) {
+            $this->reactions[] = $reaction;
+            $reaction->setResource($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReaction(Reaction $reaction): self
+    {
+        if ($this->reactions->removeElement($reaction)) {
+            // set the owning side to null (unless already changed)
+            if ($reaction->getResource() === $this) {
+                $reaction->setResource(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLatest(): ?PatchNote
+    {
+        return $this->latest;
+    }
+
+    public function setLatest(?PatchNote $latest): self
+    {
+        $this->latest = $latest;
 
         return $this;
     }

@@ -58,10 +58,16 @@ class User implements UserInterface
      */
     private $resources;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Reaction::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $reactions;
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
         $this->resources = new ArrayCollection();
+        $this->reactions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -205,6 +211,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($resource->getUser() === $this) {
                 $resource->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reaction[]
+     */
+    public function getReactions(): Collection
+    {
+        return $this->reactions;
+    }
+
+    public function addReaction(Reaction $reaction): self
+    {
+        if (!$this->reactions->contains($reaction)) {
+            $this->reactions[] = $reaction;
+            $reaction->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReaction(Reaction $reaction): self
+    {
+        if ($this->reactions->removeElement($reaction)) {
+            // set the owning side to null (unless already changed)
+            if ($reaction->getUser() === $this) {
+                $reaction->setUser(null);
             }
         }
 
