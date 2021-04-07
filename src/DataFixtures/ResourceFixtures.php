@@ -19,15 +19,16 @@ class ResourceFixtures extends Fixture implements DependentFixtureInterface
         for ($i=1; $i < 101; $i++)
         {
             $name = $faker->unique()->name;
-            $manager->persist(
-                (new Resource())
+            $resource = (new Resource())
                     ->setName($name)
                     ->setDescription($faker->text(255))
                     ->setContent($faker->text(2000))
                     ->setSlug($slugify->slugify($name))
                     ->setUser($this->getReference('user_'.random_int(1,5)))
                     ->setCategory($this->getReference('category_'.random_int(1,10)))
-            );
+            ;
+            $manager->persist($resource);
+            $this->addReference('resource_'.$i, $resource);
         }
         $manager->flush();
     }

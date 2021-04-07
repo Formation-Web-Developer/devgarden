@@ -18,6 +18,20 @@
         </div>
     </div>
     <div class="ui container">
+        <div class="ui cards">
+            <div class="card">
+                <div class="content">
+                    <div class="header">Patch Notes</div>
+                    <div class="meta">{{ resource.latest.version }}</div>
+                    <div class="description">
+                        {{ resource.latest.description }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="ui very padded container">
         <div>
             {{ resource.content }}
         </div>
