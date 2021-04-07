@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ResourceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -54,9 +56,20 @@ class Resource
      */
     private $created_at;
 
+    /**
+     * @ORM\OneToOne(targetEntity=PatchNote::class, cascade={"persist", "remove"})
+     */
+    private $latest;
+
+    /**
+     * @ORM\OneToMany(targetEntity=PatchNote::class, mappedBy="resource", orphanRemoval=true)
+     */
+    private $patchNotes;
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
+        $this->patchNotes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -144,6 +157,48 @@ class Resource
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getLatest(): ?PatchNote
+    {
+        return $this->latest;
+    }
+
+    public function setLatest(?PatchNote $latest): self
+    {
+        $this->latest = $latest;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PatchNote[]
+     */
+    public function getPatchNotes(): Collection
+    {
+        return $this->patchNotes;
+    }
+
+    public function addPatchNote(PatchNote $patchNote): self
+    {
+        if (!$this->patchNotes->contains($patchNote)) {
+            $this->patchNotes[] = $patchNote;
+            $patchNote->setResource($this);
+        }
+
+        return $this;
+    }
+
+    public function removePatchNote(PatchNote $patchNote): self
+    {
+        if ($this->patchNotes->removeElement($patchNote)) {
+            // set the owning side to null (unless already changed)
+            if ($patchNote->getResource() === $this) {
+                $patchNote->setResource(null);
+            }
+        }
 
         return $this;
     }
