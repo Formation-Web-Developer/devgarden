@@ -1,7 +1,10 @@
 {% set routeName = app.request.attributes.get('_route') %}
 
-<div class="ui inverted segment">
+<div class="ui inverted segment p-none no-radius">
     <div class="ui inverted secondary pointing menu">
+        <div class="item">
+            {{ include('components/_logo.html.twig') }}
+        </div>
         <a class="item{% if routeName == 'app_home' %} active{% endif %}" href="{{ path('app_home') }}">Accueil</a>
         <div class="ui simple dropdown item">
             Categories
