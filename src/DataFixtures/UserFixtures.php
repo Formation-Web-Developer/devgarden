@@ -35,6 +35,7 @@ class UserFixtures extends Fixture
             ;
             $user->setPassword($this->encoder->encodePassword($user,'formationwebdeveloper'));
             $manager->persist($user);
+            $this->addReference('user_'.$i,$user);
         }
         $manager->flush();
     }

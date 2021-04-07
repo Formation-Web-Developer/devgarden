@@ -10,18 +10,21 @@ class CategoryFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $manager->persist(
-            (new Category())
-                ->setName('Plugins')
-                ->setDescription('Liste des plugins')
-                ->setSlug('plugins')
-        );
-        $manager->persist(
-            (new Category())
-                ->setName('Mods')
-                ->setDescription('Liste des mods')
-                ->setSlug('mods')
-        );
+
+        $category = (new Category())
+            ->setName('Plugins')
+            ->setDescription('Liste des plugins')
+            ->setSlug('plugins');
+        $manager->persist($category);
+        $this->addReference('category_1',$category);
+
+
+        $category = (new Category())
+            ->setName('Mods')
+            ->setDescription('Liste des mods')
+            ->setSlug('mods');
+        $manager->persist($category);
+        $this->addReference('category_2',$category);
 
         $manager->flush();
     }

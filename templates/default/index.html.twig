@@ -3,10 +3,26 @@
 {% block title %}Hello DefaultController!{% endblock %}
 
 {% block body %}
-    {% for category in categories %}
-        <div>
-            {{ category.name }}
-        </div>
-
-    {% endfor %}
+    <div class="ui very padded container segment">
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                <th>Ressource</th>
+                <th>Utilisateur</th>
+                <th>Catégorie</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for category in categories %}
+                {% for resource in category.resources %}
+                    <tr>
+                        <td data-label="Ressource">{{ resource.name }}</td>
+                        <td data-label="Utilisateur">{{ resource.user.name }}</td>
+                        <td data-label="Catégorie">{{ resource.category.name }}</td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
