@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -51,9 +53,15 @@ class User implements UserInterface
      */
     private $isVerified = false;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Resource::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $resources;
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
+        $this->resources = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -169,6 +177,36 @@ class User implements UserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Resource[]
+     */
+    public function getResources(): Collection
+    {
+        return $this->resources;
+    }
+
+    public function addResource(Resource $resource): self
+    {
+        if (!$this->resources->contains($resource)) {
+            $this->resources[] = $resource;
+            $resource->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResource(Resource $resource): self
+    {
+        if ($this->resources->removeElement($resource)) {
+            // set the owning side to null (unless already changed)
+            if ($resource->getUser() === $this) {
+                $resource->setUser(null);
+            }
+        }
 
         return $this;
     }
