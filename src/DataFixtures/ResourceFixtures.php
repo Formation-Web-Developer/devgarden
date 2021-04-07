@@ -3,6 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\Resource;
+use Cocur\Slugify\Slugify;
+use Faker\Factory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -11,17 +13,20 @@ class ResourceFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        // $product = new Product();
+        $faker = Factory::create();
+        $slugify = new Slugify();
+
         for ($i=1; $i < 101; $i++)
         {
+            $name = $faker->unique()->name;
             $manager->persist(
                 (new Resource())
-                    ->setName('Fallen Kingdoms '.$i)
-                    ->setDescription('Ceci est un plugin')
-                    ->setContent('Fallen Kingdoms est un plugin minecraft incroyable !')
-                    ->setSlug('fallen-kingdoms-'.$i)
+                    ->setName($name)
+                    ->setDescription($faker->text(255))
+                    ->setContent($faker->text(2000))
+                    ->setSlug($slugify->slugify($name))
                     ->setUser($this->getReference('user_'.random_int(1,5)))
-                    ->setCategory($this->getReference('category_'.random_int(1,2)))
+                    ->setCategory($this->getReference('category_'.random_int(1,10)))
             );
         }
         $manager->flush();
