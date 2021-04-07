@@ -1,0 +1,17 @@
+{% set routeName = app.request.attributes.get('_route') %}
+
+<div class="ui inverted segment">
+    <div class="ui inverted secondary pointing menu">
+        <a class="item{% if routeName == 'app_home' %} active{% endif %}" href="{{ path('app_home') }}">Accueil</a>
+        <div class="ui simple dropdown item">
+            Categories
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                {% for category in getCategories() %}
+                    <a class="item" href="#">{{ category.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
