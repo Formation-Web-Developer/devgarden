@@ -36,5 +36,12 @@
             {{ resource.content }}
         </div>
     </div>
+    <div class="ui container">
+        {% for comment in resource.comments %}
+            <div class="ui card">
+                {{ comment.comment }}
+            </div>
+        {% endfor %}
+    </div>
 
 {% endblock %}
