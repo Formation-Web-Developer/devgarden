@@ -1,3 +1,8 @@
+:root{
+    --secondary: #fff;
+    --tier: #1b1c1d;
+}
+
 body {
     background-color: lightgray;
 }
@@ -12,17 +17,68 @@ body {
     border-radius: 0!important;
 }
 
+.icon {
+    margin: 0!important;
+}
+
 /*------- Header --------*/
 
-.secondary .ui.dropdown:hover .menu {
-    top: calc(100% - 4px)!important;
+.menu-header {
+    background-color: var(--tier);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--secondary);
+    position: relative;
 }
 
-.ui.secondary.pointing.menu .item{
-    -ms-flex-item-align: center;
-    align-self: center;
+.menu-header .item-logo, .menu-header .item-bars{
+    padding: .7rem;
 }
 
+.menu-header .item-bars {
+    font-size: 2.5rem;
+}
+
+.menu-header .item-bars .icon:before {
+    position: relative;
+    top: 8px;
+}
+
+.menu-header .menu {
+    display: none;
+    margin: 0;
+    padding: .7rem 0;
+    position: absolute;
+    top: 100%;
+    background-color: var(--tier);
+    width: 100%;
+    z-index: 10;
+}
+
+.menu-header .menu.active {
+    display: block;
+}
+
+.menu-header .menu .menu-item {
+    display: block;
+    padding: .7rem;
+}
+
+.menu-header .menu .menu-item a {
+    color: inherit;
+}
+
+@media (min-width: 768px) {
+    .menu-header .menu, .menu-header .menu.active {
+        display: flex;
+        position: unset;
+    }
+
+    .menu-header .item-bars{
+        display: none;
+    }
+}
 
 /*------- Authenticator --------*/
 .full-center {
