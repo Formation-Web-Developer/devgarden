@@ -68,12 +68,30 @@ class User implements UserInterface
      */
     private $comments;
 
+    /*
+     * @ORM\OneToMany(targetEntity=SubscribeResource::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $subscribeResources;
+
+    /**
+     * @ORM\OneToMany(targetEntity=SubscribeUser::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $subscribeUsers;
+
+    /**
+     * @ORM\OneToMany(targetEntity=SubscribeUser::class, mappedBy="subscribed", orphanRemoval=true)
+     */
+    private $subscribedUsers;
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
         $this->resources = new ArrayCollection();
         $this->reactions = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->subscribeResources = new ArrayCollection();
+        $this->subscribeUsers = new ArrayCollection();
+        $this->subscribedUsers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -267,9 +285,26 @@ class User implements UserInterface
             $this->comments[] = $comment;
             $comment->setAuthor($this);
         }
-
         return $this;
     }
+  
+    /**
+     * @return Collection|SubscribeResource[]
+     */
+    public function getSubscribeResources(): Collection
+    {
+        return $this->subscribeResources;
+    }
+
+    public function addSubscribeResource(SubscribeResource $subscribeResource): self
+    {
+        if (!$this->subscribeResources->contains($subscribeResource)) {
+            $this->subscribeResources[] = $subscribeResource;
+            $subscribeResource->setUser($this);
+        }
+        return $this;
+    }
+
 
     public function removeComment(Comment $comment): self
     {
@@ -279,7 +314,76 @@ class User implements UserInterface
                 $comment->setAuthor(null);
             }
         }
+        return $this;
+    }
+  
+    public function removeSubscribeResource(SubscribeResource $subscribeResource): self
+    {
+        if ($this->subscribeResources->removeElement($subscribeResource)) {
+            // set the owning side to null (unless already changed)
+            if ($subscribeResource->getUser() === $this) {
+                $subscribeResource->setUser(null);
+            }
+        }
+        return $this;
+    }
 
+    /**
+     * @return Collection|SubscribeUser[]
+     */
+    public function getSubscribeUsers(): Collection
+    {
+        return $this->subscribeUsers;
+    }
+
+    public function addSubscribeUser(SubscribeUser $subscribeUser): self
+    {
+        if (!$this->subscribeUsers->contains($subscribeUser)) {
+            $this->subscribeUsers[] = $subscribeUser;
+            $subscribeUser->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscribeUser(SubscribeUser $subscribeUser): self
+    {
+        if ($this->subscribeUsers->removeElement($subscribeUser)) {
+            // set the owning side to null (unless already changed)
+            if ($subscribeUser->getUser() === $this) {
+                $subscribeUser->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SubscribeUser[]
+     */
+    public function getSubscribedUsers(): Collection
+    {
+        return $this->subscribedUsers;
+    }
+
+    public function addSubscribedUser(SubscribeUser $subscribedUser): self
+    {
+        if (!$this->subscribedUsers->contains($subscribedUser)) {
+            $this->subscribedUsers[] = $subscribedUser;
+            $subscribedUser->setSubscribed($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscribedUser(SubscribeUser $subscribedUser): self
+    {
+        if ($this->subscribedUsers->removeElement($subscribedUser)) {
+            // set the owning side to null (unless already changed)
+            if ($subscribedUser->getSubscribed() === $this) {
+                $subscribedUser->setSubscribed(null);
+            }
+        }
         return $this;
     }
 }

@@ -75,6 +75,11 @@ class Resource
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="resource", orphanRemoval=true)
      */
     private $comments;
+    
+    /*
+     * @ORM\OneToMany(targetEntity=SubscribeResource::class, mappedBy="resource", orphanRemoval=true)
+     */
+    private $subscribeResources;
 
     public function __construct()
     {
@@ -82,6 +87,7 @@ class Resource
         $this->patchNotes = new ArrayCollection();
         $this->reactions = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->subscribeResources = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -244,8 +250,7 @@ class Resource
 
         return $this;
     }
-
-
+  
     /**
      * @return Collection|Comment[]
      */
@@ -259,11 +264,27 @@ class Resource
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
             $comment->setResource($this);
-        }
-
+          }
         return $this;
     }
 
+    /**
+     * @return Collection|SubscribeResource[]
+     */
+    public function getSubscribeResources(): Collection
+    {
+        return $this->subscribeResources;
+    }
+
+    public function addSubscribeResource(SubscribeResource $subscribeResource): self
+    {
+        if (!$this->subscribeResources->contains($subscribeResource)) {
+            $this->subscribeResources[] = $subscribeResource;
+            $subscribeResource->setResource($this);
+        }
+        return $this;
+    }
+        
     public function removeComment(Comment $comment): self
     {
         if ($this->comments->removeElement($comment)) {
@@ -272,7 +293,18 @@ class Resource
                 $comment->setResource(null);
             }
         }
-
+        return $this;
+    }
+  
+  
+    public function removeSubscribeResource(SubscribeResource $subscribeResource): self
+    {
+        if ($this->subscribeResources->removeElement($subscribeResource)) {
+            // set the owning side to null (unless already changed)
+            if ($subscribeResource->getResource() === $this) {
+                $subscribeResource->setResource(null);
+            }
+        }
         return $this;
     }
 }
