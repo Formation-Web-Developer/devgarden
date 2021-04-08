@@ -71,11 +71,17 @@ class Resource
      */
     private $latest;
 
+    /**
+     * @ORM\OneToMany(targetEntity=SubscribeResource::class, mappedBy="resource", orphanRemoval=true)
+     */
+    private $subscribeResources;
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
         $this->patchNotes = new ArrayCollection();
         $this->reactions = new ArrayCollection();
+        $this->subscribeResources = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -235,6 +241,36 @@ class Resource
     public function setLatest(?PatchNote $latest): self
     {
         $this->latest = $latest;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SubscribeResource[]
+     */
+    public function getSubscribeResources(): Collection
+    {
+        return $this->subscribeResources;
+    }
+
+    public function addSubscribeResource(SubscribeResource $subscribeResource): self
+    {
+        if (!$this->subscribeResources->contains($subscribeResource)) {
+            $this->subscribeResources[] = $subscribeResource;
+            $subscribeResource->setResource($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscribeResource(SubscribeResource $subscribeResource): self
+    {
+        if ($this->subscribeResources->removeElement($subscribeResource)) {
+            // set the owning side to null (unless already changed)
+            if ($subscribeResource->getResource() === $this) {
+                $subscribeResource->setResource(null);
+            }
+        }
 
         return $this;
     }
