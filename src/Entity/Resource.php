@@ -72,6 +72,11 @@ class Resource
     private $latest;
 
     /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="resource", orphanRemoval=true)
+     */
+    private $comments;
+    
+    /*
      * @ORM\OneToMany(targetEntity=SubscribeResource::class, mappedBy="resource", orphanRemoval=true)
      */
     private $subscribeResources;
@@ -81,6 +86,7 @@ class Resource
         $this->created_at = new \DateTime();
         $this->patchNotes = new ArrayCollection();
         $this->reactions = new ArrayCollection();
+        $this->comments = new ArrayCollection();
         $this->subscribeResources = new ArrayCollection();
     }
 
@@ -244,6 +250,23 @@ class Resource
 
         return $this;
     }
+  
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setResource($this);
+          }
+        return $this;
+    }
 
     /**
      * @return Collection|SubscribeResource[]
@@ -259,10 +282,21 @@ class Resource
             $this->subscribeResources[] = $subscribeResource;
             $subscribeResource->setResource($this);
         }
-
         return $this;
     }
-
+        
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getResource() === $this) {
+                $comment->setResource(null);
+            }
+        }
+        return $this;
+    }
+  
+  
     public function removeSubscribeResource(SubscribeResource $subscribeResource): self
     {
         if ($this->subscribeResources->removeElement($subscribeResource)) {
@@ -271,7 +305,6 @@ class Resource
                 $subscribeResource->setResource(null);
             }
         }
-
         return $this;
     }
 }

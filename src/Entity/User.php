@@ -64,6 +64,11 @@ class User implements UserInterface
     private $reactions;
 
     /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="author", orphanRemoval=true)
+     */
+    private $comments;
+
+    /*
      * @ORM\OneToMany(targetEntity=SubscribeResource::class, mappedBy="user", orphanRemoval=true)
      */
     private $subscribeResources;
@@ -83,6 +88,7 @@ class User implements UserInterface
         $this->created_at = new \DateTime();
         $this->resources = new ArrayCollection();
         $this->reactions = new ArrayCollection();
+        $this->comments = new ArrayCollection();
         $this->subscribeResources = new ArrayCollection();
         $this->subscribeUsers = new ArrayCollection();
         $this->subscribedUsers = new ArrayCollection();
@@ -266,6 +272,23 @@ class User implements UserInterface
     }
 
     /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setAuthor($this);
+        }
+        return $this;
+    }
+  
+    /**
      * @return Collection|SubscribeResource[]
      */
     public function getSubscribeResources(): Collection
@@ -279,10 +302,21 @@ class User implements UserInterface
             $this->subscribeResources[] = $subscribeResource;
             $subscribeResource->setUser($this);
         }
-
         return $this;
     }
 
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getAuthor() === $this) {
+                $comment->setAuthor(null);
+            }
+        }
+        return $this;
+    }
+  
     public function removeSubscribeResource(SubscribeResource $subscribeResource): self
     {
         if ($this->subscribeResources->removeElement($subscribeResource)) {
@@ -291,7 +325,6 @@ class User implements UserInterface
                 $subscribeResource->setUser(null);
             }
         }
-
         return $this;
     }
 
@@ -351,7 +384,6 @@ class User implements UserInterface
                 $subscribedUser->setSubscribed(null);
             }
         }
-
         return $this;
     }
 }
