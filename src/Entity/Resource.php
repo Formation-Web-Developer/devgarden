@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ResourceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -54,9 +56,38 @@ class Resource
      */
     private $created_at;
 
+    /**
+     * @ORM\OneToMany(targetEntity=PatchNote::class, mappedBy="resource", orphanRemoval=true)
+     */
+    private $patchNotes;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Reaction::class, mappedBy="resource", orphanRemoval=true)
+     */
+    private $reactions;
+
+    /**
+     * @ORM\OneToOne(targetEntity=PatchNote::class, cascade={"remove", "remove"})
+     */
+    private $latest;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="resource", orphanRemoval=true)
+     */
+    private $comments;
+    
+    /*
+     * @ORM\OneToMany(targetEntity=SubscribeResource::class, mappedBy="resource", orphanRemoval=true)
+     */
+    private $subscribeResources;
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
+        $this->patchNotes = new ArrayCollection();
+        $this->reactions = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->subscribeResources = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -145,6 +176,135 @@ class Resource
     {
         $this->created_at = $created_at;
 
+        return $this;
+    }
+
+    /**
+     * @return Collection|PatchNote[]
+     */
+    public function getPatchNotes(): Collection
+    {
+        return $this->patchNotes;
+    }
+
+    public function addPatchNote(PatchNote $patchNote): self
+    {
+        if (!$this->patchNotes->contains($patchNote)) {
+            $this->patchNotes[] = $patchNote;
+            $patchNote->setResource($this);
+        }
+
+        return $this;
+    }
+
+    public function removePatchNote(PatchNote $patchNote): self
+    {
+        if ($this->patchNotes->removeElement($patchNote)) {
+            // set the owning side to null (unless already changed)
+            if ($patchNote->getResource() === $this) {
+                $patchNote->setResource(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reaction[]
+     */
+    public function getReactions(): Collection
+    {
+        return $this->reactions;
+    }
+
+    public function addReaction(Reaction $reaction): self
+    {
+        if (!$this->reactions->contains($reaction)) {
+            $this->reactions[] = $reaction;
+            $reaction->setResource($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReaction(Reaction $reaction): self
+    {
+        if ($this->reactions->removeElement($reaction)) {
+            // set the owning side to null (unless already changed)
+            if ($reaction->getResource() === $this) {
+                $reaction->setResource(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLatest(): ?PatchNote
+    {
+        return $this->latest;
+    }
+
+    public function setLatest(?PatchNote $latest): self
+    {
+        $this->latest = $latest;
+
+        return $this;
+    }
+  
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setResource($this);
+          }
+        return $this;
+    }
+
+    /**
+     * @return Collection|SubscribeResource[]
+     */
+    public function getSubscribeResources(): Collection
+    {
+        return $this->subscribeResources;
+    }
+
+    public function addSubscribeResource(SubscribeResource $subscribeResource): self
+    {
+        if (!$this->subscribeResources->contains($subscribeResource)) {
+            $this->subscribeResources[] = $subscribeResource;
+            $subscribeResource->setResource($this);
+        }
+        return $this;
+    }
+        
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getResource() === $this) {
+                $comment->setResource(null);
+            }
+        }
+        return $this;
+    }
+  
+  
+    public function removeSubscribeResource(SubscribeResource $subscribeResource): self
+    {
+        if ($this->subscribeResources->removeElement($subscribeResource)) {
+            // set the owning side to null (unless already changed)
+            if ($subscribeResource->getResource() === $this) {
+                $subscribeResource->setResource(null);
+            }
+        }
         return $this;
     }
 }

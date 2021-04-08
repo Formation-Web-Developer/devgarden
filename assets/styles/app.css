@@ -2,10 +2,25 @@ body {
     background-color: lightgray;
 }
 
-/* Nav */
+/*------- Generics Class --------*/
+
+.p-none{
+    padding: 0!important;
+}
+
+.no-radius {
+    border-radius: 0!important;
+}
+
+/*------- Header --------*/
 
 .secondary .ui.dropdown:hover .menu {
     top: calc(100% - 4px)!important;
+}
+
+.ui.secondary.pointing.menu .item{
+    -ms-flex-item-align: center;
+    align-self: center;
 }
 
 

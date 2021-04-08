@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ resource.name }}{% endblock %}
+
+{% block body %}
+    <div class="ui container">
+        <div class="ui celled grid">
+            <div class="row">
+                <div class="three wide column">
+                    <img class="disabled ui avatar medium bordered circular image" src="https://picsum.photos/300/300">
+                </div>
+                <div class="thirteen wide column">
+                    <h1>{{ resource.name }}</h1>
+                    <div class="content">{{ resource.description }}</div>
+                    <p>Créer par : {{ resource.user.name }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui container">
+        <div class="ui cards">
+            <div class="card">
+                <div class="content">
+                    <div class="header">Patch Notes</div>
+                    <div class="meta">{{ resource.latest.version }}</div>
+                    <div class="description">
+                        {{ resource.latest.description }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="ui very padded container">
+        <div>
+            {{ resource.content }}
+        </div>
+    </div>
+    <div class="ui container">
+        {% for comment in resource.comments %}
+            <div class="ui card">
+                {{ comment.comment }}
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
