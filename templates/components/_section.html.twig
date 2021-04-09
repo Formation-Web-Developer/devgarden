@@ -1,22 +1,18 @@
 <div class="ui container">
-    <div class="icon">
-
-    </div>
-    <h2 class="ui header">
-        <i class="angle double up icon"></i>
-        <div class="content">
-            Top Ressources
-            <div class="ui sub grey header">Manage your preferences</div>
+    <div class="section-header">
+        <div class="section-icon">
+            <i class="angle double up icon"></i>
         </div>
-    </h2>
-    <hr>
+        <div class="section-title">
+            <h2 class="title">{{ title }}</h2>
+            <div class="subtitle">{{ subTitle }}</div>
+        </div>
+    </div>
     <div class="ui very padded centered grid">
-        {% for category in categories %}
-            {% for resource in category.resources %}
+            {% for resource in resources %}
                 <div class="four wide widescreen four wide large screen five wide computer eight wide tablet sixteen wide mobile column">
                     {{ include('components/_card.html.twig') }}
                 </div>
             {% endfor %}
-        {% endfor %}
     </div>
 </div>
