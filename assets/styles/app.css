@@ -1,29 +1,221 @@
+:root{
+    --secondary: #fff;
+    --tier: #1b1c1d;
+    --quart: #0d6834;
+}
+
 body {
     background-color: lightgray;
 }
 
 /*------- Generics Class --------*/
 
+.m-none{
+    margin: 0!important;
+}
+.my-1 {
+    margin: 1rem!important;
+}
+.my-2 {
+    margin: 2rem!important;
+}
 .p-none{
     padding: 0!important;
+}
+.p-1 {
+    padding: 1rem!important;
+}
+.p-2 {
+    padding: 2rem!important;
 }
 
 .no-radius {
     border-radius: 0!important;
 }
 
+.icon {
+    margin: 0!important;
+}
+
+.w-40{
+    width: 40%!important;
+}
+
+.w-100{
+    width: 100%!important;
+}
+.h1 {
+    font-size: 3.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
 /*------- Header --------*/
 
-.secondary .ui.dropdown:hover .menu {
-    top: calc(100% - 4px)!important;
+.menu-header {
+    background-color: var(--tier);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--secondary);
+    position: relative;
+    padding: 0 .5rem;
 }
 
-.ui.secondary.pointing.menu .item{
-    -ms-flex-item-align: center;
-    align-self: center;
+.menu-header .item-logo, .menu-header .item-bars{
+    padding: .7rem;
 }
 
+.menu-header .item-bars {
+    font-size: 2.5rem;
+}
 
+.menu-header .item-bars .icon:before {
+    position: relative;
+    top: 8px;
+}
+
+.menu-header .menu {
+    display: none;
+    margin: 0;
+    padding: .7rem 0;
+    position: absolute;
+    top: 100%;
+    background-color: var(--tier);
+    width: 100%;
+    z-index: 10;
+}
+
+.menu-header .menu.active {
+    display: block;
+}
+
+.menu-header .menu .menu-item {
+    display: block;
+    padding: .7rem;
+}
+
+.menu-header .menu .menu-item a {
+    color: inherit;
+}
+
+@media (min-width: 768px) {
+    .menu-header .menu, .menu-header .menu.active {
+        display: flex;
+        position: unset;
+    }
+
+    .menu-header .item-bars{
+        display: none;
+    }
+}
+
+@media (min-width: 1400px) {
+    .ui.container {
+        width: 1344px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+/*--------- Body --------*/
+
+.ui.card, .ui.cards>.card {
+    height: 100%;
+    border-radius: 2rem!important;
+    overflow: hidden;
+}
+
+.relative {
+    position: relative;
+}
+
+/*.absolute {*/
+/*    position: relative;*/
+/*}*/
+/*.ui.card .relative .absolute.placement {*/
+
+/*}*/
+
+.card .header-card {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 150px;
+    /*position: relative;*/
+    padding: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.card .download-card {
+    background-color: var(--secondary);
+    border-radius: .7rem;
+    overflow: hidden;
+}
+.card .download-card .count {
+    padding: .5833em .833em;
+}
+.card .picture {
+    width: 30%;
+    max-width: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: absolute;
+    top: 110px;
+    left: 10px;
+}
+.picture img {
+    width: 100%;
+    display: block;
+}
+
+.card .content .title:before {
+    margin-left: 120px;
+    content: "";
+}
+.content .title {
+    font-weight: 700;
+    font-size: 1.28571429em;
+    margin-top: .8rem;
+    line-height: 1.5;
+}
+.ui.card .content {
+    color: var(--tier);
+}
+.ui.card>.content>.description {
+    padding: 1.5rem 0;
+    color: var(--tier);
+}
+
+.card .card-divider {
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    border-image: linear-gradient(to right, white, #aaaaaa) 100% 1;
+}
+.ui.card>.extra, .ui.cards>.card>.extra {
+    border: none!important;
+}
+.ui.card>.button, .ui.card>.buttons, .ui.cards>.card>.button, .ui.cards>.card>.buttons {
+    margin: 0;
+    width: 100%;
+    -webkit-box-shadow: none!important;
+    box-shadow: none!important;
+    background-color: var(--quart);
+    color: var(--secondary);
+}
 /*------- Authenticator --------*/
 .full-center {
     min-height: 100vh;

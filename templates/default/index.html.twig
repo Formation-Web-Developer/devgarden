@@ -3,35 +3,8 @@
 {% block title %}Hello DefaultController!{% endblock %}
 
 {% block body %}
-    <div class="ui very padded container segment">
-        <table class="ui celled table">
-            <thead>
-            <tr>
-                <th>Ressource</th>
-                <th>Utilisateur</th>
-                <th>Catégorie</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for category in categories %}
-                {% for resource in category.resources %}
-                    <tr>
-                        <td data-label="Ressource">
-                            <a href="{{ path('resource_show',{
-                                category_slug : category.slug,
-                                resource_slug : resource.slug
-                            }) }}">
-                                {{ resource.name }}
-                            </a>
-                        </td>
-                        <td data-label="Utilisateur">{{ resource.user.name }}</td>
-                        <td data-label="Catégorie">{{ resource.category.name }}</td>
-                    </tr>
-                {% endfor %}
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
 
+    {{ include('components/_section.html.twig') }}
     {{ include('components/_logo.html.twig') }}
+
 {% endblock %}
