@@ -22,7 +22,7 @@
         </div>
     </div>
     <a class="ui bottom attached button" href="{{ path('resource_show',{
-        category_slug : category.slug,
-        resource_slug : resource.slug
+        category_slug : resource.category.slug,
+        resource_slug : resource.slug,
     }) }}">Voir Plus</a>
 </div>
