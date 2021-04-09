@@ -1,11 +1,13 @@
 :root{
+    --primary: #2d3131;
     --secondary: #fff;
     --tier: #1b1c1d;
     --quart: #0d6834;
+    --five: #cc7c21;
 }
 
 body {
-    background-color: lightgray;
+    background-color: var(--primary);
 }
 
 /*------- Generics Class --------*/
@@ -131,10 +133,50 @@ body {
 }
 /*--------- Body --------*/
 
+.section-header {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    color: var(--five);
+}
+
+.section-header .section-icon {
+    font-size: 4rem;
+}
+
+.section-header .section-icon .icon:before {
+    position: relative;
+    top: 20px;
+}
+
+.section-header .section-title {
+    width: 100%;
+}
+
+.section-header .section-title .title {
+    font-size: 2rem;
+    border-bottom: 2px solid var(--secondary);
+    padding-bottom: .7rem;
+    margin-bottom: .5rem;
+}
+
+.section-header .section-title .subtitle {
+    color: var(--secondary);
+}
+
 .ui.card, .ui.cards>.card {
     height: 100%;
     border-radius: 2rem!important;
     overflow: hidden;
+    background-color: var(--tier);
+
+    -webkit-box-shadow: 0 1px 3px 0  var(--tier), 0 0 0 1px var(--primary);
+    box-shadow: 0 1px 3px 0 var(--tier), 0 0 0 1px var(--primary);
+    transition: .2s;
+}
+
+.ui.card:hover, .ui.cards>.card:hover {
+    transform: translateY(-10px);
 }
 
 .relative {
@@ -152,18 +194,35 @@ body {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 150px;
+    height: 125px;
     /*position: relative;*/
     padding: 20px;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
+    position: relative;
 }
 
+.card .header-card:after{
+    content: "";
+    background-color: #000a;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.card .ui.label {
+    background-color: var(--five);
+    color: var(--secondary);
+}
 .card .download-card {
-    background-color: var(--secondary);
+    background-color: var(--tier);
+    color: var(--secondary);
     border-radius: .7rem;
     overflow: hidden;
+    position: relative;
+    z-index: 5;
 }
 .card .download-card .count {
     padding: .5833em .833em;
@@ -174,8 +233,8 @@ body {
     border-radius: 50%;
     overflow: hidden;
     position: absolute;
-    top: 110px;
-    left: 10px;
+    top: 70px;
+    left: 15px;
 }
 .picture img {
     width: 100%;
@@ -191,13 +250,14 @@ body {
     font-size: 1.28571429em;
     margin-top: .8rem;
     line-height: 1.5;
+    color: var(--five);
 }
 .ui.card .content {
-    color: var(--tier);
+    color: var(--secondary);
 }
 .ui.card>.content>.description {
     padding: 1.5rem 0;
-    color: var(--tier);
+    color: var(--secondary);
 }
 
 .card .card-divider {
@@ -213,7 +273,7 @@ body {
     width: 100%;
     -webkit-box-shadow: none!important;
     box-shadow: none!important;
-    background-color: var(--quart);
+    background-color: var(--five);
     color: var(--secondary);
 }
 /*------- Authenticator --------*/
