@@ -4,7 +4,24 @@
 
 {% block body %}
 
-    {{ include('components/_section.html.twig') }}
+    {{ include('components/_section.html.twig',{
+        title : 'Top Ressource',
+        subTitle : 'Les meilleurs ressources du moment !',
+        resources: resources
+    }) }}
+
+    {{ include('components/_section.html.twig',{
+        title : 'Nouvelles Ressources',
+        subTitle : 'Les nouvelles ressources du moment !',
+        resources: resources
+    }) }}
+
+    {{ include('components/_section.html.twig',{
+        title : 'Les Plus Téléchargées',
+        subTitle : 'Les ressources les plus téléchargées du moment !',
+        resources: resources
+    }) }}
+
     {{ include('components/_logo.html.twig') }}
 
 {% endblock %}
