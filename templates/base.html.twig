@@ -19,6 +19,25 @@
         {% block header %}
             {{ include('components/_header.html.twig') }}
         {% endblock %}
+
+        {% block subHeader %}
+            <div class="ui inverted segment grid m-none no-radius">
+                <div class="sixteen column center aligned p-2">
+                    <p class="h1">DevGarden</p>
+                    <p>Le slogan de malheur du DevGarden</p>
+                    <form action="#" method="POST" class="ui form my-2">
+                        <div class="ui search field">
+                            <div class="ui icon input">
+                                <input class="prompt" type="text" placeholder="Rechercher une ressource...">
+                                <i class="search icon"></i>
+                            </div>
+                            <div class="results"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        {% endblock %}
+
         {% block body %}
 
         {% endblock %}

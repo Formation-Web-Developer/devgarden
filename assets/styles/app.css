@@ -10,8 +10,23 @@ body {
 
 /*------- Generics Class --------*/
 
+.m-none{
+    margin: 0!important;
+}
+.my-1 {
+    margin: 1rem!important;
+}
+.my-2 {
+    margin: 2rem!important;
+}
 .p-none{
     padding: 0!important;
+}
+.p-1 {
+    padding: 1rem!important;
+}
+.p-2 {
+    padding: 2rem!important;
 }
 
 .no-radius {
@@ -29,6 +44,23 @@ body {
 .w-100{
     width: 100%!important;
 }
+.h1 {
+    font-size: 3.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+}
 
 /*------- Header --------*/
 
@@ -39,6 +71,7 @@ body {
     align-items: center;
     color: var(--secondary);
     position: relative;
+    padding: 0 .5rem;
 }
 
 .menu-header .item-logo, .menu-header .item-bars{
