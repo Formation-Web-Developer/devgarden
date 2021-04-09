@@ -1,0 +1,28 @@
+<div class="ui fluid card">
+    <div class="header-card" style="background-image: url(https://picsum.photos/250/75);">
+        <div class="ui labeled input download-card">
+            <div class="ui label">
+                <i class="download icon"></i>
+            </div>
+            <div class="count">4 121 212</div>
+        </div>
+    </div>
+
+    <div class="picture">
+        <img src="https://picsum.photos/75/75" alt="">
+    </div>
+
+    <div class="content">
+        <div class="title">
+            {{ resource.name }}
+        </div>
+
+        <div class="description">
+            {{ resource.description }}
+        </div>
+    </div>
+    <a class="ui bottom attached button" href="{{ path('resource_show',{
+        category_slug : category.slug,
+        resource_slug : resource.slug
+    }) }}">Voir Plus</a>
+</div>
