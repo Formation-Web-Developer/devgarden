@@ -75,8 +75,8 @@ class Resource
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="resource", orphanRemoval=true)
      */
     private $comments;
-    
-    /*
+
+    /**
      * @ORM\OneToMany(targetEntity=SubscribeResource::class, mappedBy="resource", orphanRemoval=true)
      */
     private $subscribeResources;
@@ -250,7 +250,7 @@ class Resource
 
         return $this;
     }
-  
+
     /**
      * @return Collection|Comment[]
      */
@@ -284,7 +284,7 @@ class Resource
         }
         return $this;
     }
-        
+
     public function removeComment(Comment $comment): self
     {
         if ($this->comments->removeElement($comment)) {
@@ -295,8 +295,8 @@ class Resource
         }
         return $this;
     }
-  
-  
+
+
     public function removeSubscribeResource(SubscribeResource $subscribeResource): self
     {
         if ($this->subscribeResources->removeElement($subscribeResource)) {
