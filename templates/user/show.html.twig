@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% block title %}Profil de l'utilisateur{% endblock %}
+
+{% block subHeader %}
+
+{% endblock %}
+{% block body %}
+
+    <div class="ui my-2 container">
+        <div class="ui grid">
+            <div class="row">
+                <div class="three wide computer sixteen wide tablet sixteen wide mobile flex-center column">
+                    <img class="ui avatar medium bordered circular image" src="https://picsum.photos/300/300">
+                </div>
+                <div class="my-2 name-user thirteen wide computer sixteen wide tablet sixteen wide mobile column">
+                    <h1>{{ user.name }}</h1>
+                    {% if self %}
+                        <p>c'est mon profil</p>
+                    {% endif %}
+                    <div class="subscriber my-1">
+                        <p><i class="user icon"></i> {{ user.subscribedUsers.count }}</p>
+                    </div>
+                    <div class="content">
+                        <p class="t-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet asperiores blanditiis et facere fugiat impedit itaque iure magnam modi officia officiis perspiciatis quisquam similique suscipit tempore ut veniam, voluptatibus?</p>
+
+                    </div>
+                    <button class="my-1 ui button floated right">S'abonner</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ include('components/_section.html.twig',{
+        title: 'Mes ressources',
+        subTitle: 'bllsdlclscl',
+        resources: user.resources
+    }) }}
+
+{% endblock %}
+
+

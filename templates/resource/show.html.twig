@@ -11,7 +11,7 @@
                 <img src="https://picsum.photos/75/75" alt="">
                 <div class="resource-title">
                     <h1>{{ resource.name }}</h1>
-                    <p>publié par <a href="#">{{ resource.user.name }}</a></p>
+                    <p>publié par <a href="{{ path('user', { name: resource.user.name }) }}">{{ resource.user.name }}</a></p>
                 </div>
             </div>
             <div class="resource-link">
