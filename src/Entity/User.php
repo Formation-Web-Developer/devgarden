@@ -68,7 +68,7 @@ class User implements UserInterface
      */
     private $comments;
 
-    /*
+    /**
      * @ORM\OneToMany(targetEntity=SubscribeResource::class, mappedBy="user", orphanRemoval=true)
      */
     private $subscribeResources;
@@ -287,7 +287,7 @@ class User implements UserInterface
         }
         return $this;
     }
-  
+
     /**
      * @return Collection|SubscribeResource[]
      */
@@ -316,7 +316,7 @@ class User implements UserInterface
         }
         return $this;
     }
-  
+
     public function removeSubscribeResource(SubscribeResource $subscribeResource): self
     {
         if ($this->subscribeResources->removeElement($subscribeResource)) {
