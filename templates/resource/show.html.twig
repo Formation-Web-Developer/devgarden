@@ -12,7 +12,7 @@
                 <div class="thirteen wide column">
                     <h1>{{ resource.name }}</h1>
                     <div class="content">{{ resource.description }}</div>
-                    <p>Créer par : {{ resource.user.name }}</p>
+                    <p>Créer par : <a href="{{ path('user', { name: resource.user.name }) }}">{{ resource.user.name }}</a></p>
                 </div>
             </div>
         </div>
