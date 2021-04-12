@@ -17,6 +17,11 @@ class ResourceController extends AbstractController
      */
     public function show(Category $category, \App\Entity\Resource $resource): Response
     {
+        if ($category->getId() !== $resource->getCategory()->getId())
+        {
+            throw $this->createNotFoundException('Resource not found !');
+        }
+
         return $this->render("resource/show.html.twig", [
             'resource' => $resource,
         ]);

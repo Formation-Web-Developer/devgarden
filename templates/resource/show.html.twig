@@ -2,46 +2,130 @@
 
 {% block title %}{{ resource.name }}{% endblock %}
 
+{% block subHeader %}{% endblock %}
+
 {% block body %}
     <div class="ui container">
-        <div class="ui celled grid">
-            <div class="row">
-                <div class="three wide column">
-                    <img class="disabled ui avatar medium bordered circular image" src="https://picsum.photos/300/300">
-                </div>
-                <div class="thirteen wide column">
+        <div class="resource-header">
+            <div class="resource-author">
+                <img src="https://picsum.photos/75/75" alt="">
+                <div class="resource-title">
                     <h1>{{ resource.name }}</h1>
-                    <div class="content">{{ resource.description }}</div>
-                    <p>Créer par : {{ resource.user.name }}</p>
+                    <p>publié par <a href="#">{{ resource.user.name }}</a></p>
+                </div>
+            </div>
+            <div class="resource-link">
+                <i class="ellipsis horizontal icon"></i>
+            </div>
+        </div>
+
+        <div class="resource-notation">
+            <div class="buttons">
+                <a href="#" class="like success">{{ include('components/svg/_hearth.html.twig') }}</a>
+                <a href="#" class="like error">{{ include('components/svg/_breakhearth.html.twig') }}</a>
+            </div>
+            <div class="notation-bar">
+                {% if resource.reactions.empty %}
+                    <div class="progress"></div>
+                {% else %}
+                    <div class="progress error">
+                        <div class="progress success" style="width: {{ ( resource.reactions|filter(r => r.liked)|length * 100 ) / resource.reactions.count }}%"></div>
+                    </div>
+                {% endif %}
+                <div class="buttons">
+                    <a href="#" class="like success">{{ include('components/svg/_hearth.html.twig') }} Recommender</a>
+                    <a href="#" class="like error">{{ include('components/svg/_breakhearth.html.twig') }} Ne pas recommender</a>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="ui container">
-        <div class="ui cards">
-            <div class="card">
-                <div class="content">
-                    <div class="header">Patch Notes</div>
-                    <div class="meta">{{ resource.latest.version }}</div>
-                    <div class="description">
-                        {{ resource.latest.description }}
+
+        <div class="resource-content">
+            <div class="resource-image">
+                <img src="https://picsum.photos/250/250" alt="...">
+            </div>
+
+            <div class="resource-description">
+                <h2>A propos</h2>
+                <hr>
+                <div class="resource-code">
+                    {{ resource.content|nl2br }}
+                </div>
+            </div>
+
+            <div class="resource-misc">
+                <div class="resource-image">
+                    <img src="https://picsum.photos/250/250" alt="...">
+                </div>
+                <div class="buttons">
+                    <button><i class="download icon"></i> Télécharger</button>
+                    <a href="#">Recevoir les mises à jour</a>
+                </div>
+                <table class="ui inverted definition table resource">
+                    <tr>
+                        <td>Nombre de téléchargement</td>
+                        <td>5 123 457</td>
+                    </tr>
+                    <tr>
+                        <td>Dernière version</td>
+                        <td>{{ resource.latest.version }}</td>
+                    </tr>
+                    <tr>
+                        <td>Dernière mise à jour</td>
+                        <td>{{ resource.latest.createdAt.format('d/m/Y') }}</td>
+                    </tr>
+                    <tr>
+                        <td>Première publication</td>
+                        <td>{{ resource.createdAt.format('d/m/Y') }}</td>
+                    </tr>
+                    <tr>
+                        <td>Taille du fichier</td>
+                        <td>452Mo</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="ui comments resource-comments">
+            <h2>Commentaires</h2>
+            <hr>
+
+            <div class="comment-form">
+                {% if app.user %}
+                    <form action="#" class="ui form">
+                        <div class="field">
+                            <textarea rows="2" placeholder="Laisser un commentaire..."></textarea>
+                        </div>
+                        <button class="ui submit button"><i class="paper plane icon"></i>Submit</button>
+                    </form>
+                {% else %}
+                    Veuillez-vous <a href="{{ path('app_login') }}">connecter</a> pour poser un commentaire.
+                {% endif %}
+            </div>
+
+            {% for comment in resource.comments %}
+                <div class="comment">
+                    <a class="avatar">
+                        <img src="https://picsum.photos/75/75" alt="...">
+                    </a>
+                    <div class="content">
+                        <a class="#">{{ comment.author.name }}</a>
+                        <div class="metadata">
+                            <span class="date">{{ comment.createdAt.format('d/m/Y à H:i') }}</span>
+                        </div>
+                        <div class="text">
+                            {{ comment.comment|nl2br }}
+                        </div>
+                        {#<div class="actions">
+                            <a class="reply">Répondre</a>
+                        </div>#}
                     </div>
                 </div>
-            </div>
-        </div>
+            {% else %}
+                <div class="no-comment">
+                    Pas de commentaire...
+                </div>
+            {% endfor %}
 
-    </div>
-    <div class="ui very padded container">
-        <div>
-            {{ resource.content }}
         </div>
     </div>
-    <div class="ui container">
-        {% for comment in resource.comments %}
-            <div class="ui card">
-                {{ comment.comment }}
-            </div>
-        {% endfor %}
-    </div>
-
 {% endblock %}
