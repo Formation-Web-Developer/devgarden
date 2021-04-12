@@ -4,6 +4,31 @@
     --tier: #1b1c1d;
     --quart: #0d6834;
     --five: #cc7c21;
+
+    --five-hover: #b16c1c;
+}
+
+/*------- Reset CSS --------*/
+button {
+    background-color: var(--five);
+    color: var(--secondary);
+    border: none;
+    border-radius: .3rem;
+    padding: .5rem 1rem;
+    transition: .3s;
+}
+button:hover {
+    background-color: var(--five-hover);
+    cursor: pointer;
+}
+
+img {
+    width: 100%;
+    display: block;
+}
+
+a{
+    color: var(--five);
 }
 
 body {
@@ -321,6 +346,184 @@ body {
     margin: 1rem;
 }
 
+/*------- Resources --------*/
+.resource-header {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: var(--secondary);
+}
+
+.resource-header .resource-author {
+    display: flex;
+    flex-wrap: wrap;
+}
+.resource-header .resource-author img {
+    border-radius: 50%;
+    width: 5rem;
+    margin-right: 1rem;
+}
+
+.resource-header .resource-author h1 {
+    margin: 0;
+}
+
+.resource-header .resource-author a {
+    color: var(--five);
+}
+
+.resource-header .resource-link {
+    font-size: 2rem;
+}
+
+.resource-notation {
+    margin: 2rem 0 0;
+    color: var(--secondary);
+}
+
+.resource-notation > .buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin: .5rem;
+}
+
+.resource-notation > .buttons a:not(:last-child) {
+    margin-right: .5rem;
+}
+
+.resource-notation .buttons a{
+    color: inherit;
+    display: flex;
+    align-items: center;
+}
+
+.resource-notation .buttons svg {
+    width: 2rem;
+}
+
+.resource-notation .buttons .like.success {
+    color: #21ba45;
+}
+.resource-notation .buttons .like.success svg {
+    fill: #21ba45;
+}
+
+.resource-notation .buttons .like.error {
+    color: #db2828;
+}
+.resource-notation .buttons .like.error svg {
+    fill: #db2828;
+}
+
+.resource-notation .notation-bar {
+    display: flex;
+    align-items: center;
+}
+
+.resource-notation .notation-bar .buttons {
+    display: none;
+    width: 500px;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: .5rem;
+}
+.resource-notation .notation-bar .buttons svg {
+    padding-right: .5rem;
+}
+
+.resource-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.resource-content .resource-image {
+    width: 100%;
+}
+
+.resource-content > .resource-image {
+    margin-top: 1rem;
+}
+
+.resource-content .resource-misc {
+    margin: .5rem 0;
+    width: 100%;
+}
+
+.resource-content .resource-misc .buttons {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 1rem 0 .5rem;
+}
+
+.resource-content .resource-misc .buttons a {
+    margin-top: .5rem;
+}
+
+.resource-content .resource-misc .resource-image {
+    display: none;
+}
+
+.resource-content .resource-description {
+    color: var(--secondary);
+    margin: .5rem 0;
+}
+
+.resource-content .resource-description h2 {
+    color: var(--five);
+}
+
+.resource-comments {
+    padding: 2rem 0;
+    color: var(--secondary);
+}
+
+.ui.comments {
+    max-width: 100%;
+}
+
+.ui.comments .comment {
+    max-width: 650px;
+    margin-top: 2rem;
+}
+
+.resource-comments h2 {
+    color: var(--five);
+}
+
+.resource-comments .comment-form {
+    background-color: var(--tier);
+    padding: 2rem;
+}
+
+
+.ui.comments.resource-comments .comment .text,
+.ui.comments.resource-comments .comment .date {
+    color: var(--secondary);
+}
+
+.ui.comments.resource-comments .comment a {
+    color: var(--five);
+}
+
+/*------- Progress Bar --------*/
+
+.progress {
+    height: 5px;
+    border-radius: .5rem;
+    width: 100%;
+    background-color: #888;
+}
+
+.progress.error {
+    background-color: #db2828;
+}
+
+.progress.success {
+    background-color: #21ba45;
+}
 
 /*--------- Page Profil ---------*/
 
@@ -352,7 +555,38 @@ body {
         width: 33.33333%;
     }
 
+    /*---- Resources -----*/
+    .resource-notation > .buttons {
+        display: none;
+    }
+
+    .resource-notation .notation-bar .buttons {
+        display: flex;
+    }
+
+    .resource-content {
+        flex-direction: row-reverse;
+    }
+
+    .resource-content > .resource-image {
+        display: none;
+    }
+
+    .resource-content .resource-description {
+        width: 66.666667%;
+        padding-left: .5rem;
+    }
+
+    .resource-content .resource-misc {
+        width: 33.333333%;
+        padding-right: .5rem;
+    }
+
+    .resource-content .resource-misc .resource-image {
+        display: block;
+    }
 }
+  
 @media (max-width: 993px) {
     .name-user h1 {
         text-align: center;
