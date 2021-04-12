@@ -14,9 +14,6 @@
                 </div>
                 <div class="my-2 name-user thirteen wide computer sixteen wide tablet sixteen wide mobile column">
                     <h1>{{ user.name }}</h1>
-                    {% if self %}
-                        <p>c'est mon profil</p>
-                    {% endif %}
                     <div class="subscriber my-1">
                         <p><i class="user icon"></i> {{ user.subscribedUsers.count }}</p>
                     </div>
@@ -28,6 +25,9 @@
                 </div>
             </div>
         </div>
+        {% if self %}
+            <a href="{{ path('resource_new') }}">Ajouter une ressource</a>
+        {% endif %}
     </div>
 
     {{ include('components/_section.html.twig',{

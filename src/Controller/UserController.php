@@ -23,8 +23,7 @@ class UserController extends AbstractController
 
 
     /**
-     * @Route("/utilisateurs/profil", name="user_profil", priority=5)
-     * @IsGranted("ROLE_USER")
+     * @Route("/utilisateurs/profil", name="user_profile", priority=5)
      */
     public function profile():Response
     {
@@ -46,4 +45,5 @@ class UserController extends AbstractController
     {
         return $this->showUser($user);
     }
+
 }
