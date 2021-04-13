@@ -32,7 +32,7 @@ class ResourceController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateurs/profil/ressources/nouveau", name="resource_new", methods={"GET","POST"})
+     * @Route("/utilisateurs/profil/ressources/nouveau", name="resource_new", methods={"GET","POST"}, priority=5)
      */
     public function new(Request $request): Response
     {
@@ -58,7 +58,7 @@ class ResourceController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateurs/profil/ressources/{id}", name="resource_edit", methods={"GET","POST"})
+     * @Route("/utilisateurs/profil/ressources/{id}", name="resource_edit", methods={"GET","POST"}, priority=3)
      */
     public function edit(Request $request, Resource $resource): Response
     {
@@ -78,7 +78,7 @@ class ResourceController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateurs/profil/ressources/supprimer/{id}", name="resource_delete", methods={"POST"})
+     * @Route("/utilisateurs/profil/ressources/supprimer/{id}", name="resource_delete", methods={"POST"}, priority=3)
      */
     public function delete(Request $request, Resource $resource): Response
     {

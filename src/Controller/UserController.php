@@ -25,7 +25,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateurs/profil", name="user_profile", priority=5)
+     * @Route("/profil", name="profile", priority=5)
      */
     public function profile():Response
     {
