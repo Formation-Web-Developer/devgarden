@@ -22,4 +22,11 @@ class DefaultController extends AbstractController
             'resources'   => $resourceRepository->resourceLimitHome()
         ]);
     }
+    /**
+     * @Route("/conditions-generales-utilsateurs", name="app_cgu")
+     */
+    public function cgu():Response
+    {
+        return $this->render('default/cgu.html.twig');
+    }
 }

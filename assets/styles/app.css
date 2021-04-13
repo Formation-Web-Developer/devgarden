@@ -328,6 +328,21 @@ body {
     color: var(--secondary);
 }
 
+
+/*--------- Page CGU ---------*/
+.cgu-main{
+    padding: 60px;
+    color: var(--secondary);
+}
+.cgu-main h1, .cgu-main h3{
+    color: var(--five);
+    margin-top: 30px;
+}
+.cgu-main h1{
+    border-bottom: var(--five) 2px solid;
+    margin-bottom: 10px;
+}
+
 /*------- Authenticator --------*/
 @media (min-width: 1400px) {
     .ui.container {
