@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Resource{% endblock %}
+{% block subHeader %}
+
+{% endblock %}
+{% block body %}
+    <div class="full-center">
+        <div class="ui very padded text container segment ">
+            <h1>Editer votre Resource</h1>
+            {{ include('resource/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+            <div class="ui divider"></div>
+            <div class="link-auth">
+                {{ include('resource/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

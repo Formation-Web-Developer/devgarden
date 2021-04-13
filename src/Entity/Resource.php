@@ -67,19 +67,16 @@ class Resource
     private $reactions;
 
     /**
-     * @ORM\OneToOne(targetEntity=PatchNote::class, cascade={"remove", "remove"})
-     */
-    private $latest;
-
-    /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="resource", orphanRemoval=true)
      */
     private $comments;
-    
-    /*
+
+    /**
      * @ORM\OneToMany(targetEntity=SubscribeResource::class, mappedBy="resource", orphanRemoval=true)
      */
     private $subscribeResources;
+
+    private ?PatchNote $latest = null;
 
     public function __construct()
     {
@@ -239,18 +236,6 @@ class Resource
         return $this;
     }
 
-    public function getLatest(): ?PatchNote
-    {
-        return $this->latest;
-    }
-
-    public function setLatest(?PatchNote $latest): self
-    {
-        $this->latest = $latest;
-
-        return $this;
-    }
-  
     /**
      * @return Collection|Comment[]
      */
@@ -284,7 +269,7 @@ class Resource
         }
         return $this;
     }
-        
+
     public function removeComment(Comment $comment): self
     {
         if ($this->comments->removeElement($comment)) {
@@ -295,8 +280,8 @@ class Resource
         }
         return $this;
     }
-  
-  
+
+
     public function removeSubscribeResource(SubscribeResource $subscribeResource): self
     {
         if ($this->subscribeResources->removeElement($subscribeResource)) {
@@ -306,5 +291,15 @@ class Resource
             }
         }
         return $this;
+    }
+
+    public function getLatest(): ?PatchNote
+    {
+        if (is_null($this->latest)) {
+            $this->latest = $this->getPatchNotes()
+                ->filter(fn ($p) => $p->getLatest())
+                ->first() ?: false;
+        }
+        return $this->latest;
     }
 }

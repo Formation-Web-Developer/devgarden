@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PatchNote index{% endblock %}
+
+{% block subHeader %}{% endblock %}
+
+{% block body %}
+    <div class="ui container my-3">
+        <div class="ui segment inverted t-justify">
+            <h1 class="color-five">Version {{ patchNote.version }}</h1>
+            <p>{{ patchNote.description }}</p>
+            <p>{{ patchNote.createdAt|date('y-m-Y') }}</p>
+            {% if app.user and app.user.id == patchNote.resource.user.id %}
+                <div>
+                    <a href="{{ path('patch_note_edit', {
+                        id: patchNote.id ,
+                        slug: patchNote.resource.slug
+                    }) }}">Editer</a>
+                    {{ include('resource/patch_note/_delete_form.html.twig') }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="ui segment inverted t-justify">
+            {{ patchNote.content }}
+        </div>
+    </div>
+{% endblock %}
