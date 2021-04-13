@@ -14,11 +14,10 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="app_home", priority=5)
      */
-    public function index(CategoryRepository $categoryRepository,ResourceRepository $resourceRepository): Response
+    public function index(ResourceRepository $resourceRepository): Response
     {
 
         return $this->render('default/index.html.twig', [
-            'categories' => $categoryRepository->findAll(),
             'resources'   => $resourceRepository->resourceLimitHome()
         ]);
     }
@@ -42,6 +41,6 @@ class DefaultController extends AbstractController
      */
     public function cgv():Response
     {
-        return $this->render('default/cgv.html.twig'); 
+        return $this->render('default/cgv.html.twig');
     }
 }
