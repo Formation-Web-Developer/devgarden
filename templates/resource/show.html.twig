@@ -86,7 +86,14 @@
                 </table>
             </div>
         </div>
-
+        <div class="ui">
+            <div>
+                <a href="{{ path('patch_notes_index', {
+                    category_slug : resource.category.slug,
+                    resource_slug : resource.slug
+                }) }}">Voir les Patch-Notes</a>
+            </div>
+        </div>
         <div class="ui comments resource-comments">
             <h2>Commentaires</h2>
             <hr>
