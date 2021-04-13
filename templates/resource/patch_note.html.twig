@@ -11,7 +11,7 @@
                 <a href="{{ path('patch_note_new', { slug: resource.slug }) }}">Ajouter une version</a>
             </div>
         {% endif %}
-        {% for patchNote in patchNotes %}
+        {% for patchNote in resource.patchNotes %}
                 <div class="ui segment inverted t-justify">
                     <div class="content">
                         <h2 class="color-five">Version :</h2>

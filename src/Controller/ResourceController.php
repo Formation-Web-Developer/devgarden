@@ -26,12 +26,8 @@ class ResourceController extends AbstractController
      */
     public function show(ResourceRepository $repository, string $category_slug, string $resource_slug): Response
     {
-        if (!($resource = $repository->getByCategoryAndSlug($category_slug, $resource_slug)))
-        {
-            throw $this->createNotFoundException('Resource not found !');
-        }
         return $this->render("resource/show.html.twig", [
-            'resource' => $resource,
+            'resource' => $this->getResourceBySlug($repository, $category_slug, $resource_slug)
         ]);
     }
 
@@ -40,15 +36,11 @@ class ResourceController extends AbstractController
      */
     public function indexPatch(ResourceRepository $repository, string $category_slug, string $resource_slug): Response
     {
-        if (!($resource = $repository->getByCategoryAndSlug($category_slug, $resource_slug)))
-        {
-            throw $this->createNotFoundException('Resource not found !');
-        }
         return $this->render("resource/patch_note.html.twig", [
-            'resource' => $resource,
-            'patchNotes' => $resource->getPatchNotes()
+            'resource' => $this->getResourceBySlug($repository, $category_slug, $resource_slug)
         ]);
     }
+
     /**
      * @Route("/versions/{patch_note_slug}", name="patch_notes_show")
      */
@@ -57,12 +49,31 @@ class ResourceController extends AbstractController
         string $resource_slug, string $patch_note_slug
     ): Response
     {
-        if(!($patchNote = $repository->getByResourceAndCategorySlug($category_slug, $resource_slug, $patch_note_slug)))
+        return $this->render("resource/patch_note/index.html.twig", [
+            'patchNote' => $this->getPatchNoteBySlug($repository, $category_slug, $resource_slug, $patch_note_slug)
+        ]);
+    }
+
+    private function getResourceBySlug(
+        ResourceRepository $repository, string $categorySlug, string $resourceSlug
+    ): ?\App\Entity\Resource
+    {
+        if (!($resource = $repository->getByCategoryAndSlug($categorySlug, $resourceSlug)))
+        {
+            throw $this->createNotFoundException('Resource not found !');
+        }
+        return $resource;
+    }
+
+    private function getPatchNoteBySlug(
+        PatchNoteRepository $repository, string $categorySlug,
+        string $resourceSlug, string $patchNoteSlug
+    ): ?PatchNote
+    {
+        if (!($patchNote = $repository->getByResourceAndCategorySlug($categorySlug, $resourceSlug, $patchNoteSlug)))
         {
             throw $this->createNotFoundException('Patch Note not found !');
         }
-        return $this->render("resource/patch_note/index.html.twig", [
-            'patchNote' => $patchNote
-        ]);
+        return $patchNote;
     }
 }
