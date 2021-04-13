@@ -29,4 +29,11 @@ class DefaultController extends AbstractController
     {
         return $this->render('default/cgu.html.twig');
     }
+        /**
+     * @Route("/reglementation-general-protection-donnees", name="app_rgpd")
+     */
+    public function rgpd():Response
+    {
+        return $this->render('default/rgpd.html.twig');
+    }
 }
