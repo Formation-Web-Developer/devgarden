@@ -25,8 +25,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/profil", name="profil", priority=5)
-     * @IsGranted("ROLE_USER")
+     * @Route("/utilisateurs/profil", name="user_profile", priority=5)
      */
     public function profile():Response
     {
