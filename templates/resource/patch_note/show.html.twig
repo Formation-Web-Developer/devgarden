@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PatchNote{% endblock %}
+
+{% block body %}
+    <h1>PatchNote</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ patch_note.id }}</td>
+            </tr>
+            <tr>
+                <th>Version</th>
+                <td>{{ patch_note.version }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ patch_note.description }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ patch_note.content }}</td>
+            </tr>
+            <tr>
+                <th>Link</th>
+                <td>{{ patch_note.link }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ patch_note.slug }}</td>
+            </tr>
+            <tr>
+                <th>Publish_at</th>
+                <td>{{ patch_note.publishAt ? patch_note.publishAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ patch_note.createdAt ? patch_note.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('patch_note_index') }}">back to list</a>
+
+    <a href="{{ path('patch_note_edit', {'id': patch_note.id}) }}">edit</a>
+
+    {{ include('resource/patch_note/_delete_form.html.twig') }}
+{% endblock %}

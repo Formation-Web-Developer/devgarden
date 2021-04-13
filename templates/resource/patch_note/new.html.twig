@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New PatchNote{% endblock %}
+
+{% block subHeader %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="full-center">
+        <div class="ui very padded text container segment ">
+            <h1>Créer votre Patch Note</h1>
+            {{ include('resource/patch_note/_form.html.twig') }}
+            <div class="ui divider"></div>
+            <div class="link-auth">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

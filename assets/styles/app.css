@@ -31,6 +31,22 @@ a{
     color: var(--five);
 }
 
+.color-primary {
+    color: var(--primary);
+}
+.color-secondary {
+    color: var(--secondary);
+}
+.color-tier {
+    color: var(--tier);
+}
+.color-quart {
+    color: var(--quart);
+}
+.color-five {
+    color: var(--five);
+}
+
 body {
     background-color: var(--primary);
 }
@@ -586,7 +602,7 @@ body {
         display: block;
     }
 }
-  
+
 @media (max-width: 993px) {
     .name-user h1 {
         text-align: center;

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les patch notes{% endblock %}
+
+{% block subHeader %}{% endblock %}
+
+{% block body %}
+    <div class="ui container my-3">
+        {% if app.user and app.user.id == resource.user.id %}
+            <div>
+                <a href="{{ path('patch_note_new', { slug: resource.slug }) }}">Ajouter une version</a>
+            </div>
+        {% endif %}
+        {% for patchNote in patchNotes %}
+                <div class="ui segment inverted t-justify">
+                    <div class="content">
+                        <h2 class="color-five">Version :</h2>
+                        <div class="ui label">
+                            <a href="{{ path('patch_notes_show', {
+                                category_slug: patchNote.resource.category.slug ,
+                                resource_slug: patchNote.resource.slug ,
+                                patch_note_slug: patchNote.slug
+                            }) }}">{{ patchNote.version }}</a>
+                        </div>
+                    </div>
+                    <div class="ui segment inverted t-justify">
+                        {{ patchNote.description }}
+                    </div>
+                </div>
+        {% endfor %}
+    </div>
+{% endblock %}
