@@ -11,7 +11,7 @@
                 <img src="https://picsum.photos/75/75" alt="">
                 <div class="resource-title">
                     <h1>{{ resource.name }}</h1>
-                    <p>publié par <a href="{{ path('user', { name: resource.user.name }) }}">{{ resource.user.name }}</a></p>
+                    <p>publié par <a href="{{ path('user_show', { name: resource.user.name }) }}">{{ resource.user.name }}</a></p>
                 </div>
             </div>
             <div class="resource-link">
@@ -98,7 +98,7 @@
                         <button class="ui submit button"><i class="paper plane icon"></i>Submit</button>
                     </form>
                 {% else %}
-                    Veuillez-vous <a href="{{ path('app_login') }}">connecter</a> pour poser un commentaire.
+                    Veuillez-vous <a href="{{ path('user_login') }}">connecter</a> pour poser un commentaire.
                 {% endif %}
             </div>
 

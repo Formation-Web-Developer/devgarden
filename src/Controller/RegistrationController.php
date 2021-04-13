@@ -27,7 +27,7 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route("/register", name="app_register")
+     * @Route("/utilisateurs/senregistrer", name="user_register", priority=5)
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginAuthenticator $authenticator): Response
     {
@@ -49,7 +49,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation('user_verify_email', $user,
                 (new TemplatedEmail())
                     ->from(new Address('contact@devgarden.fr', 'DevGarden'))
                     ->to($user->getEmail())
@@ -73,20 +73,20 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route("/verify/email", name="app_verify_email")
+     * @Route("/utilisateurs/verification/email", name="user_verify_email", priority=5)
      */
     public function verifyUserEmail(Request $request, UserRepository $userRepository): Response
     {
         $id = $request->get('id');
 
         if (null === $id) {
-            return $this->redirectToRoute('app_register');
+            return $this->redirectToRoute('user_register');
         }
 
         $user = $userRepository->find($id);
 
         if (null === $user) {
-            return $this->redirectToRoute('app_register');
+            return $this->redirectToRoute('user_register');
         }
 
         // validate email confirmation link, sets User::isVerified=true and persists
@@ -94,12 +94,12 @@ class RegistrationController extends AbstractController
             $this->emailVerifier->handleEmailConfirmation($request, $user);
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('negative', 'register.verify_mail_error');
-            return $this->redirectToRoute('app_register');
+            return $this->redirectToRoute('user_register');
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', 'register.verify_mail_success');
 
-        return $this->redirectToRoute('app_login');
+        return $this->redirectToRoute('user_login');
     }
 }

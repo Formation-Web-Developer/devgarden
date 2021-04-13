@@ -9,10 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/utilisateurs", name="user_")
+ */
 class UserController extends AbstractController
 {
     /**
-     * @Route("/utilisateurs", name="user_index")
+     * @Route("/", name="index", priority=5)
      */
     public function index(): Response
     {
@@ -21,14 +24,21 @@ class UserController extends AbstractController
         ]);
     }
 
-
     /**
-     * @Route("/utilisateurs/profil", name="user_profil", priority=5)
+     * @Route("/profil", name="profil", priority=5)
      * @IsGranted("ROLE_USER")
      */
     public function profile():Response
     {
         return $this->showUser($this->getUser());
+    }
+
+    /**
+     * @Route("/{name}", name="show", priority=3)
+     */
+    public function user(User $user):Response
+    {
+        return $this->showUser($user);
     }
 
     private function showUser(User $user): Response
@@ -37,13 +47,5 @@ class UserController extends AbstractController
             'user' => $user,
             'self' => $this->getUser() && $this->getUser()->getId() === $user->getId()
         ]);
-    }
-
-    /**
-     * @Route("/utilisateurs/{name}", name="user", priority="3")
-     */
-    public function user(User $user):Response
-    {
-        return $this->showUser($user);
     }
 }

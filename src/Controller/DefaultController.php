@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/", name="app_home")
+     * @Route("/", name="app_home", priority=5)
      */
     public function index(CategoryRepository $categoryRepository,ResourceRepository $resourceRepository): Response
     {
