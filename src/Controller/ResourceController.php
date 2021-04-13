@@ -7,6 +7,8 @@ use App\Entity\PatchNote;
 use App\Entity\Resource;
 use App\Entity\User;
 use App\Form\ResourceType;
+use App\Repository\PatchNoteRepository;
+use App\Repository\ResourceRepository;
 use Cocur\Slugify\Slugify;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,33 +16,31 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/{category_slug}/{resource_slug}")
+ */
 class ResourceController extends AbstractController
 {
     /**
-     * @Route("/{category_slug}/{resource_slug}", name="resource_show")
-     * @ParamConverter("category", options={"mapping": {"category_slug": "slug"}})
-     * @ParamConverter("resource", options={"mapping": {"resource_slug": "slug"}})
+     * @Route("/", name="resource_show")
      */
-    public function show(Category $category, \App\Entity\Resource $resource): Response
+    public function show(ResourceRepository $repository, string $category_slug, string $resource_slug): Response
     {
-        if ($category->getId() !== $resource->getCategory()->getId())
+        if (!($resource = $repository->getByCategoryAndSlug($category_slug, $resource_slug)))
         {
             throw $this->createNotFoundException('Resource not found !');
         }
-
         return $this->render("resource/show.html.twig", [
             'resource' => $resource,
         ]);
     }
 
     /**
-     * @Route("/{category_slug}/{resource_slug}/versions", name="patch_notes_index")
-     * @ParamConverter("category", options={"mapping": {"category_slug": "slug"}})
-     * @ParamConverter("resource", options={"mapping": {"resource_slug": "slug"}})
+     * @Route("/versions", name="patch_notes_index")
      */
-    public function indexPatch(Category $category, \App\Entity\Resource $resource): Response
+    public function indexPatch(ResourceRepository $repository, string $category_slug, string $resource_slug): Response
     {
-        if ($category->getId() !== $resource->getCategory()->getId())
+        if (!($resource = $repository->getByCategoryAndSlug($category_slug, $resource_slug)))
         {
             throw $this->createNotFoundException('Resource not found !');
         }
@@ -50,18 +50,17 @@ class ResourceController extends AbstractController
         ]);
     }
     /**
-     * @Route("/{category_slug}/{resource_slug}/versions/{patch_note_slug}", name="patch_notes_show")
-     * @ParamConverter("category", options={"mapping": {"category_slug": "slug"}})
-     * @ParamConverter("resource", options={"mapping": {"resource_slug": "slug"}})
-     * @ParamConverter("patchNote", options={"mapping": {"patch_note_slug": "slug"}})
+     * @Route("/versions/{patch_note_slug}", name="patch_notes_show")
      */
-    public function showPatch(Category $category, \App\Entity\Resource $resource, PatchNote $patchNote): Response
+    public function showPatch(
+        PatchNoteRepository $repository, string $category_slug,
+        string $resource_slug, string $patch_note_slug
+    ): Response
     {
-        if ($category->getId() !== $resource->getCategory()->getId())
+        if(!($patchNote = $repository->getByResourceAndCategorySlug($category_slug, $resource_slug, $patch_note_slug)))
         {
-            throw $this->createNotFoundException('Resource not found !');
+            throw $this->createNotFoundException('Patch Note not found !');
         }
-
         return $this->render("resource/patch_note/index.html.twig", [
             'patchNote' => $patchNote
         ]);
