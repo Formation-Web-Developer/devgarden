@@ -58,6 +58,11 @@ class PatchNote
      */
     private $resource;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $latest;
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
@@ -160,6 +165,18 @@ class PatchNote
     public function setResource(?Resource $resource): self
     {
         $this->resource = $resource;
+
+        return $this;
+    }
+
+    public function getLatest(): ?bool
+    {
+        return $this->latest;
+    }
+
+    public function setLatest(bool $latest): self
+    {
+        $this->latest = $latest;
 
         return $this;
     }

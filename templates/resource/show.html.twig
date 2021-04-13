@@ -65,14 +65,16 @@
                         <td>Nombre de téléchargement</td>
                         <td>5 123 457</td>
                     </tr>
-                    <tr>
-                        <td>Dernière version</td>
-                        <td>{{ resource.latest.version }}</td>
-                    </tr>
-                    <tr>
-                        <td>Dernière mise à jour</td>
-                        <td>{{ resource.latest.createdAt.format('d/m/Y') }}</td>
-                    </tr>
+                    {% if resource.latest %}
+                        <tr>
+                            <td>Dernière version</td>
+                            <td>{{ resource.latest.version }}</td>
+                        </tr>
+                        <tr>
+                            <td>Dernière mise à jour</td>
+                            <td>{{ resource.latest.createdAt.format('d/m/Y') }}</td>
+                        </tr>
+                    {% endif %}
                     <tr>
                         <td>Première publication</td>
                         <td>{{ resource.createdAt.format('d/m/Y') }}</td>
