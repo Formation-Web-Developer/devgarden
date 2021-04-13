@@ -30,11 +30,8 @@ class PatchNoteFixtures extends Fixture implements DependentFixtureInterface
                     ->setSlug($slugify->slugify($name))
                     ->setLink($faker->text(10))
                     ->setResource($resource)
+                    ->setLatest($i === $n)
                 ;
-                if ($i === $n) {
-                    $resource->setLatest($patchNote);
-                    $manager->persist($resource);
-                }
                 $manager->persist($patchNote);
 
             }
