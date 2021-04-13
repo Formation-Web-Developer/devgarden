@@ -19,6 +19,29 @@ class PatchNoteRepository extends ServiceEntityRepository
         parent::__construct($registry, PatchNote::class);
     }
 
+    public function getByResourceAndCategorySlug(
+        string $categorySlug,
+        string $resourceSlug,
+        string $patchNoteSlug
+    ): ?PatchNote
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p', 'r', 'c', 'u')
+            ->join('p.resource', 'r')
+            ->join('r.category', 'c')
+            ->join('r.user', 'u')
+            ->where('p.slug = :patch_note_slug')
+            ->andWhere('r.slug = :resource_slug')
+            ->andWhere('c.slug = :category_slug')
+            ->setParameters([
+                'patch_note_slug' => $patchNoteSlug,
+                'resource_slug'   => $resourceSlug,
+                'category_slug'   => $categorySlug
+            ])
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     // /**
     //  * @return PatchNote[] Returns an array of PatchNote objects
     //  */

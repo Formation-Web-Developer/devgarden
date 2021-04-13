@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Resource;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -33,6 +34,21 @@ class ResourceRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getByCategoryAndSlug(string $categorySlug, string $resourceSlug): ?\App\Entity\Resource
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r', 'c', 'u')
+            ->join('r.category', 'c')
+            ->join('r.user', 'u')
+            ->where('r.slug = :resource_slug')
+            ->andWhere('c.slug = :category_slug')
+            ->setParameters([
+                'category_slug' => $categorySlug,
+                'resource_slug' => $resourceSlug
+            ])
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 
     /*
     public function findOneBySomeField($value): ?Resource
