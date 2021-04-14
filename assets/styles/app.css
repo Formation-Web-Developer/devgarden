@@ -554,6 +554,10 @@ body {
     color: var(--five);
 }
 
+.ui.comments.resource-comments #commentList {
+    padding: 4rem 0 0;
+}
+
 /*------- Patch Notes --------*/
 .main-pn{
     color: var(--secondary);
@@ -609,6 +613,11 @@ body {
 
 .progress.success {
     background-color: #21ba45;
+}
+
+/*--------- Alert box ----------*/
+.ui.icon.message>.icon:not(.close){
+    margin-right: .6em!important;
 }
 
 /*--------- Page Profil ---------*/

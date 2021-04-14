@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Comment;
 use App\Entity\PatchNote;
 use App\Entity\Resource;
 use App\Entity\User;
@@ -12,9 +13,16 @@ use App\Repository\ResourceRepository;
 use Cocur\Slugify\Slugify;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/{category_slug}")
@@ -69,6 +77,48 @@ class ResourceController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/{resource_slug}/commentaires", name="resource_comments", methods={"GET"})
+     */
+    public function comments(
+        ResourceRepository $repository, string $category_slug,
+        string $resource_slug, SerializerInterface $serializer
+    ): JsonResponse
+    {
+        $resource = $this->getResourceBySlug($repository, $category_slug, $resource_slug);
+        return $this->json($serializer->serialize($resource->getComments(), 'json', [
+            'groups' => ['comment']
+        ]));
+    }
+
+    /**
+     * @Route("/{resource_slug}/commentaires/nouveau", name="resource_send_comment", methods={"POST"})
+     */
+    public function sendComment(
+        ResourceRepository $repository, string $category_slug,
+        string $resource_slug, Request $request
+    ): JsonResponse
+    {
+        if(!$this->getUser()) {
+            return $this->json(['type' => 'error', 'reason' => 'Accès refusé !']);
+        }
+        $resource = $this->getResourceBySlug($repository, $category_slug, $resource_slug);
+        $message = $request->request->get('message') ?? '';
+        if (mb_strlen($message) < 10 || mb_strlen($message) > 2048) {
+            return $this->json(['type' => 'error', 'reason' => 'Le nombre de caractère doit-être compris entre 10 et 255']);
+        }
+
+        $comment = (new Comment())
+            ->setAuthor($this->getUser())
+            ->setResource($resource)
+            ->setComment($message);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($comment);
+        $entityManager->flush();
+
+        return $this->json(['type' => 'success']);
+    }
     /**
      * @Route("/{resource_slug}/versions/{patch_note_slug}/latest", name="patch_note_latest", methods={"POST"})
      */
