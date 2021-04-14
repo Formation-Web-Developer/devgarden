@@ -543,6 +543,50 @@ body {
     color: var(--five);
 }
 
+/*------- Patch Notes --------*/
+.main-pn{
+    color: var(--secondary);
+}
+.title-pn, .btns-pn{
+    display: flex;
+    align-items: center;
+}
+.bar-title-pn{
+    height: 3px;
+    background-color: var(--secondary);
+    width: 50%;
+}
+.title-pn h1{
+    padding: 6px;
+    text-align: center;
+}
+.center-pn{
+    text-align: center;
+    justify-content: center;
+}
+.slug-pn{
+    padding-top: 70px;
+    color: var(--five);
+    padding-bottom: 20px;
+    border-bottom: gray 2px solid;
+    font-weight: bold;
+    font-size: 114%;
+}
+.img-pn{
+    text-align: center;
+}
+.img-pn img{
+    width: 220px;
+    padding: 10px;
+}
+.btn-pn a, .btn-pn button{
+    display: block;
+    margin: 10px;
+}
+.btns-pn{
+    padding: 90px;
+}
+
 /*------- Progress Bar --------*/
 
 .progress {
@@ -641,6 +685,20 @@ body {
 
     .resource-content .resource-misc .resource-image {
         display: block;
+    }
+
+    /*---- Patch Note -----*/
+    .phone-pn{
+        display: none;
+    }
+
+}
+@media (max-width: 768px){
+
+    /*---- Patch Note -----*/
+
+    .img-pn{
+        display: none;
     }
 }
 
