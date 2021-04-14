@@ -17,12 +17,26 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/{category_slug}/{resource_slug}")
+ * @Route("/{category_slug}")
  */
 class ResourceController extends AbstractController
 {
     /**
-     * @Route("/", name="resource_show")
+     * @Route("/", name="category_resource")
+     */
+    public function index(ResourceRepository $repository, string $category_slug): Response
+    {
+        $resources = $repository->getResourceByCategoryLimit($category_slug);
+        if (empty($resources)) {
+            throw $this->createNotFoundException('Category not found or empty !');
+        }
+        return $this->render('default/index.html.twig', [
+            'resources' => $resources
+        ]);
+    }
+
+    /**
+     * @Route("/{resource_slug}", name="resource_show")
      */
     public function show(ResourceRepository $repository, string $category_slug, string $resource_slug): Response
     {
@@ -33,7 +47,7 @@ class ResourceController extends AbstractController
     }
 
     /**
-     * @Route("/versions", name="patch_notes_index")
+     * @Route("/{resource_slug}/versions", name="patch_notes_index")
      */
     public function indexPatch(ResourceRepository $repository, string $category_slug, string $resource_slug): Response
     {
@@ -43,7 +57,7 @@ class ResourceController extends AbstractController
     }
 
     /**
-     * @Route("/versions/{patch_note_slug}", name="patch_notes_show", methods={"GET"})
+     * @Route("/{resource_slug}/versions/{patch_note_slug}", name="patch_notes_show", methods={"GET"})
      */
     public function showPatch(
         PatchNoteRepository $repository, string $category_slug,
@@ -56,7 +70,7 @@ class ResourceController extends AbstractController
     }
 
     /**
-     * @Route("/versions/{patch_note_slug}/latest", name="patch_note_latest", methods={"POST"})
+     * @Route("/{resource_slug}/versions/{patch_note_slug}/latest", name="patch_note_latest", methods={"POST"})
      */
     public function latest(
         PatchNoteRepository $repository, string $category_slug,

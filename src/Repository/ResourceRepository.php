@@ -50,6 +50,24 @@ class ResourceRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * @return Resource[]
+     */
+    function getResourceByCategoryLimit(string $categorySlug, int $limit = 8, int $offset = 0): array
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r', 'c')
+            ->join('r.category', 'c')
+            ->where('c.slug = :slug')
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->setParameters([
+                'slug' => $categorySlug
+            ])
+            ->getQuery()
+            ->getResult();
+    }
+
     /*
     public function findOneBySomeField($value): ?Resource
     {

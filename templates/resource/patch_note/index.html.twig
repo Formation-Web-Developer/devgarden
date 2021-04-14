@@ -5,17 +5,33 @@
 {% block subHeader %}{% endblock %}
 
 {% block body %}
+<main class="main-pn">
     <div class="ui container my-3">
-        <div class="ui segment inverted t-justify">
+        <div class="title-pn">
+            <div class="bar-title-pn"></div>
             <h1 class="color-five">Version {{ patchNote.version }}</h1>
-            {% if patchNote.latest == true %}
-                <div class="ui label my-1"> A la une </div>
-            {% endif %}
-            <p>{{ patchNote.description }}</p>
-            <p>{{ patchNote.createdAt|date('y-m-Y') }}</p>
+            <div class="bar-title-pn"></div>
+
+            <div class="img-pn">
+                <img src="https://picsum.photos/id/1025/350/200" alt="">
+                <p>Modifié le : {{ patchNote.createdAt|date('y-m-Y') }}</p>
+             </div>
+        </div>
+
+        <div class="phone-pn center-pn">
+             <p>Modifié le : {{ patchNote.createdAt|date('y-m-Y') }}</p>
+        </div>
+
             {% if app.user and app.user.id == patchNote.resource.user.id %}
-                <div class="flex-center">
-                    {% if patchNote.latest == false %}
+            <div class="center-pn btns-pn">
+                <div class="btn-pn">
+                    <a href="{{ path('patch_note_edit', {
+                        id: patchNote.id ,
+                        slug: patchNote.resource.slug
+                    }) }}"><i class="edit icon"></i> Editer</a>
+                    {{ include('resource/patch_note/_delete_form.html.twig') }}
+                </div>
+                {% if patchNote.latest == false %}
                         <form action="{{ path('patch_note_latest', {
                             'category_slug'   : patchNote.resource.category.slug,
                             'resource_slug'   : patchNote.resource.slug,
@@ -24,20 +40,13 @@
                             <button class="ui button" type="submit" value="">Mettre en avant</button>
                         </form>
                     {% endif %}
-
-
-                    <div class="ui button">
-                        <a href="{{ path('patch_note_edit', {
-                            id: patchNote.id ,
-                            slug: patchNote.resource.slug
-                        }) }}">Editer</a>
-                    </div>
-                    {{ include('resource/patch_note/_delete_form.html.twig') }}
-                </div>
+            </div>
             {% endif %}
-        </div>
-        <div class="ui segment inverted t-justify">
-            {{ patchNote.content }}
+        
+        <div>
+        <p class="slug-pn">{{ patchNote.description }}</p>
+        <p>{{ patchNote.content }}</p>
         </div>
     </div>
+</main>
 {% endblock %}
