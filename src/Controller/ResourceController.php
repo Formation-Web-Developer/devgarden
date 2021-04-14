@@ -49,7 +49,8 @@ class ResourceController extends AbstractController
     public function show(ResourceRepository $repository, string $category_slug, string $resource_slug): Response
     {
         return $this->render("resource/show.html.twig", [
-            'resource' => $this->getResourceBySlug($repository, $category_slug, $resource_slug)
+            'resource' => $this->getResourceBySlug($repository, $category_slug, $resource_slug),
+
         ]);
     }
 
@@ -64,7 +65,7 @@ class ResourceController extends AbstractController
     }
 
     /**
-     * @Route("/{resource_slug}/versions/{patch_note_slug}", name="patch_notes_show")
+     * @Route("/{resource_slug}/versions/{patch_note_slug}", name="patch_notes_show", methods={"GET"})
      */
     public function showPatch(
         PatchNoteRepository $repository, string $category_slug,
@@ -117,6 +118,21 @@ class ResourceController extends AbstractController
         $entityManager->flush();
 
         return $this->json(['type' => 'success']);
+    }
+    /**
+     * @Route("/{resource_slug}/versions/{patch_note_slug}/latest", name="patch_note_latest", methods={"POST"})
+     */
+    public function latest(
+        PatchNoteRepository $repository, string $category_slug,
+        string $resource_slug, string $patch_note_slug
+    ): Response
+    {
+        $repository->updateLatest($this->getPatchNoteBySlug($repository, $category_slug, $resource_slug, $patch_note_slug));
+        return $this->redirectToRoute('patch_notes_show',[
+            'category_slug'   => $category_slug,
+            'resource_slug'   => $resource_slug,
+            'patch_note_slug' => $patch_note_slug
+        ]);
     }
 
     private function getResourceBySlug(

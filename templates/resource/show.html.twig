@@ -68,7 +68,11 @@
                     {% if resource.latest %}
                         <tr>
                             <td>Dernière version</td>
-                            <td>{{ resource.latest.version }}</td>
+                            <td><a href="{{ path('patch_notes_show', {
+                                    'category_slug' : resource.category.slug,
+                                    'resource_slug' : resource.slug,
+                                    'patch_note_slug' : resource.latest.slug
+                                }) }}">{{ resource.latest.version }}</a></td>
                         </tr>
                         <tr>
                             <td>Dernière mise à jour</td>

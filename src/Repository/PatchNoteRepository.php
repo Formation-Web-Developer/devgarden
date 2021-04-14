@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\PatchNote;
+use App\Entity\Resource;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 
 /**
  * @method PatchNote|null find($id, $lockMode = null, $lockVersion = null)
@@ -40,6 +42,21 @@ class PatchNoteRepository extends ServiceEntityRepository
             ])
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function updateLatest(PatchNote $patchNote)
+    {
+        return $this->createQueryBuilder('p')
+            ->update()
+            ->set('p.latest', ('(CASE p.id WHEN :pid THEN 1 ELSE 0 END)'))
+            ->where('p.resource = :id')
+            ->setParameters([
+                'id' => $patchNote->getResource()->getId(),
+                'pid'=> $patchNote->getId()
+            ])
+            ->getQuery()
+            ->execute()
+        ;
     }
 
     // /**

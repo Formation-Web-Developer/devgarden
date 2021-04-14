@@ -157,7 +157,7 @@ class PatchNote
         return $this;
     }
 
-    public function getResource(): ?Resource
+    public function getResource(): ?\App\Entity\Resource
     {
         return $this->resource;
     }
