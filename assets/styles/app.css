@@ -339,13 +339,24 @@ body {
     margin-left: 110px;
     content: "";
 }
-.content .title {
+.card .content .title {
     font-weight: 700;
     font-size: 1.28571429em;
     margin-top: .8rem;
     line-height: 1.5;
     color: var(--five);
 }
+
+.card .content .subtitle {
+    font-size: 1rem;
+    font-style: italic;
+    margin: 0;
+}
+
+.card .content .subtitle a {
+    color: var(--quart)!important;
+}
+
 .ui.card .content {
     color: var(--secondary);
 }
