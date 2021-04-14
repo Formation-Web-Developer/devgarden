@@ -3,27 +3,55 @@
 <header>
     <nav class="menu-header">
         <div class="item-logo">
-            {{ include('components/svg/_logo.html.twig') }}
+            <a href="{{ path('app_home') }}">
+                {{ include('components/svg/_logo.html.twig') }}
+            </a>
         </div>
         <div class="item-bars" id="showMenu">
             <i class="bars icon"></i>
         </div>
-        <ul class="menu" id="headerMenu">
-            <li class="menu-item">
-                <a class="item{% if routeName == 'app_home' %} active{% endif %}" href="{{ path('app_home') }}">Accueil</a>
-            </li>
-            <li class="menu-item">
-                <div class="ui simple dropdown item">
-                    Categories
-                    <i class="dropdown icon"></i>
-                    <div class="menu">
-                        {% for category in getCategories() %}
-                            <a class="item" href="#">{{ category.name }}</a>
-                        {% endfor %}
+        <div id="headerMenu">
+            <ul class="menu">
+                <li class="menu-item">
+                    <div class="ui simple dropdown item">
+                        Categories
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            {% for category in getCategories() %}
+                                <a class="item" href="#">{{ category.name }}</a>
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
-            </li>
-        </ul>
+                </li>
+            </ul>
+
+            <div class="header-host">
+                <ul class="menu">
+                    {% if app.user %}
+                        <li class="menu-item">
+                            <a href="{{ path('user_profile') }}" class="item-image">
+                                <img src="https://picsum.photos/75/75" alt="...">
+                                {{ app.user.name }}
+                            </a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="{{ path('user_logout') }}">
+                                <i class="sign out alternate icon"></i>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="menu-item">
+                            <a href="{{ path('user_login') }}" class="item">
+                                Se connecter
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{{ path('user_register') }}" class="item">Inscription</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
     </nav>
 </header>
 
