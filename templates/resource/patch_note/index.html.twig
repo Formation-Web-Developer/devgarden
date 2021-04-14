@@ -12,37 +12,37 @@
             <h1 class="color-five">Version {{ patchNote.version }}</h1>
             <div class="bar-title-pn"></div>
 
-            <div class="img-pn">
-                <img src="https://picsum.photos/id/1025/350/200" alt="">
-                <p>Modifié le : {{ patchNote.createdAt|date('y-m-Y') }}</p>
-             </div>
+{#            <div class="img-pn">#}
+{#                <img src="https://picsum.photos/id/1025/350/200" alt="">#}
+{#                <p>Modifié le : {{ patchNote.createdAt|date('y-m-Y') }}</p>#}
+{#            </div>#}
         </div>
 
-        <div class="phone-pn center-pn">
+        <div class="center-pn">
              <p>Modifié le : {{ patchNote.createdAt|date('y-m-Y') }}</p>
         </div>
 
             {% if app.user and app.user.id == patchNote.resource.user.id %}
             <div class="center-pn btns-pn">
+                {% if patchNote.latest == false %}
+                    <form action="{{ path('patch_note_latest', {
+                        'category_slug'   : patchNote.resource.category.slug,
+                        'resource_slug'   : patchNote.resource.slug,
+                        'patch_note_slug' : patchNote.slug
+                    }) }}" method="post">
+                        <button class="ui button" type="submit" value="">A la une</button>
+                    </form>
+                {% endif %}
                 <div class="btn-pn">
                     <a href="{{ path('patch_note_edit', {
                         id: patchNote.id ,
                         slug: patchNote.resource.slug
                     }) }}"><i class="edit icon"></i> Editer</a>
-                    {{ include('resource/patch_note/_delete_form.html.twig') }}
                 </div>
-                {% if patchNote.latest == false %}
-                        <form action="{{ path('patch_note_latest', {
-                            'category_slug'   : patchNote.resource.category.slug,
-                            'resource_slug'   : patchNote.resource.slug,
-                            'patch_note_slug' : patchNote.slug
-                        }) }}" method="post">
-                            <button class="ui button" type="submit" value="">Mettre en avant</button>
-                        </form>
-                    {% endif %}
+                {{ include('resource/patch_note/_delete_form.html.twig') }}
+
             </div>
             {% endif %}
-        
         <div>
         <p class="slug-pn">{{ patchNote.description }}</p>
         <p>{{ patchNote.content }}</p>
