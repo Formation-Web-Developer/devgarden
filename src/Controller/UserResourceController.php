@@ -69,7 +69,6 @@ class UserResourceController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$resource->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $resource->setLatest(null);
             foreach ($resource->getPatchNotes() as $patchNote){
                 $entityManager->remove($patchNote);
             }

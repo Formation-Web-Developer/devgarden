@@ -336,13 +336,13 @@ body {
 }
 
 .card .content .title:before {
-    margin-left: 110px;
+
     content: "";
 }
 .card .content .title {
+    margin-left: 110px;
     font-weight: 700;
     font-size: 1.28571429em;
-    margin-top: .8rem;
     line-height: 1.5;
     color: var(--five);
 }
