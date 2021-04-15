@@ -34,7 +34,6 @@ class ResourcePatchNoteController extends AbstractController
             $entityManager->persist($patchNote);
             $patchNote->setLink('');
             $patchNote->setSlug($slugify->slugify($patchNote->getVersion()));
-            $patchNote->setCreatedAt(new \DateTime());
             $patchNote->setResource($resource);
             $entityManager->flush();
 

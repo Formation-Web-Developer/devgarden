@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ResourceRepository;
+use App\Utils\State;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -78,6 +79,11 @@ class Resource
 
     private ?PatchNote $latest = null;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $validation;
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
@@ -85,6 +91,7 @@ class Resource
         $this->reactions = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->subscribeResources = new ArrayCollection();
+        $this->validation = State::WAITING;
     }
 
     public function getId(): ?int
@@ -301,5 +308,17 @@ class Resource
                 ->first() ?: false;
         }
         return $this->latest;
+    }
+
+    public function getValidation(): ?int
+    {
+        return $this->validation;
+    }
+
+    public function setValidation(int $validation): self
+    {
+        $this->validation = $validation;
+
+        return $this;
     }
 }
