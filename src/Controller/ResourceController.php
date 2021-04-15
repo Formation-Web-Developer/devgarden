@@ -34,12 +34,14 @@ class ResourceController extends AbstractController
      */
     public function index(ResourceRepository $repository, string $category_slug): Response
     {
-        $resources = $repository->getResourceByCategoryLimit($category_slug);
+        $limit = $this->getParameter('homepage.resources.limit');
+        $resources = $repository->getResourceByCategoryLimit($category_slug, $limit);
         if (empty($resources)) {
             throw $this->createNotFoundException('Category not found or empty !');
         }
         return $this->render('default/index.html.twig', [
-            'resources' => $resources
+            'resources' => $resources,
+            'newResources' => $repository->getNewResourceByCategoryLimit($category_slug, $limit)
         ]);
     }
 
@@ -49,8 +51,7 @@ class ResourceController extends AbstractController
     public function show(ResourceRepository $repository, string $category_slug, string $resource_slug): Response
     {
         return $this->render("resource/show.html.twig", [
-            'resource' => $this->getResourceBySlug($repository, $category_slug, $resource_slug),
-
+            'resource' => $this->getResourceBySlug($repository, $category_slug, $resource_slug)
         ]);
     }
 

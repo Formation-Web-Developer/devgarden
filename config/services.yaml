@@ -7,6 +7,9 @@ parameters:
     pagination.admin.users: 5
     pagination.admin.resources: 10
     pagination.admin.categories: 8
+
+    homepage.resources.limit: 8
+
 services:
     App\Twig\CategoryExtension:
         tags: [ twig.extension ]
