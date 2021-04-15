@@ -1,7 +1,7 @@
-$(document).ready(function() {
+jQuery($ => {
     $('.ui.dropdown').dropdown();
     $('.sidebar-menu-toggler').on('click', function() {
-        var target = $(this).data('target');
+        const target = $(this).data('target');
         $(target)
             .sidebar({
                 dinPage: true,
@@ -10,4 +10,20 @@ $(document).ready(function() {
             })
             .sidebar('toggle');
     });
-});
+
+    $('input[data-type="search"]').keyup(e => {
+        if (e.keyCode === 13 && e.target.value.length > 0 && e.target.dataset.url) {
+            if (!(e.target.dataset.ajax ?? false)) {
+                window.location = e.target.dataset.url + '/' + encodeURI(e.target.value);
+            }
+        }
+    });
+
+    $('.ui.search.dropdown.select-role')
+        .dropdown({
+            onChange: function(value, text, selectedItem) {
+                $(selectedItem).parents('form').submit();
+            }
+        })
+    ;
+})
