@@ -1,40 +1,75 @@
 {% extends 'base.html.twig' %}
-{% block title %}Profil de l'utilisateur{% endblock %}
-
-{% block subHeader %}
-
+{% block title %}Profil de l'utilisateur
 {% endblock %}
+
+{% block subHeader %}{% endblock %}
 {% block body %}
+	<main class="main-profil">
+		<div class="ui my-2 container flex-profil">
 
-    <div class="ui my-2 container">
-        <div class="ui grid">
-            <div class="row">
-                <div class="three wide computer sixteen wide tablet sixteen wide mobile flex-center column">
-                    <img class="ui avatar medium bordered circular image" src="https://picsum.photos/300/300">
-                </div>
-                <div class="my-2 name-user thirteen wide computer sixteen wide tablet sixteen wide mobile column">
-                    <h1>{{ user.name }}</h1>
-                    <div class="subscriber my-1">
-                        <p><i class="user icon"></i> {{ user.subscribedUsers.count }}</p>
-                    </div>
-                    <div class="content">
-                        <p class="t-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet asperiores blanditiis et facere fugiat impedit itaque iure magnam modi officia officiis perspiciatis quisquam similique suscipit tempore ut veniam, voluptatibus?</p>
+			<div class="flex-center bottom-profil">
+				<div>
+					<img class="profil-img" src="https://picsum.photos/300/300">
+				</div>
+				<div class="profil-right">
+					<h1>{{ user.name }}</h1>
 
-                    </div>
-                    <button class="my-1 ui button floated right">S'abonner</button>
-                </div>
-            </div>
-        </div>
-        {% if self %}
-            <a href="{{ path('user_resource_new') }}">Ajouter une ressource</a>
-        {% endif %}
-    </div>
+					{% if not self %}
+						<button class="ui button floated right">S'abonner</button>
+					{% endif %}
 
-    {{ include('components/_section.html.twig',{
+
+					{% if self %}
+						<div class="user-btns">
+							<div class="button-five">
+								<a href="{{ path('user_resource_new') }}">Ajouter une ressource</a>
+							</div>
+							<div class="button-five">
+								<a href="#">Editer mon profil</a>
+							</div>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+			<div class="pc-right">
+				<div class="border-pc">
+					<div class="profils-count">
+						<p>Suivi par
+							<span class="bold">{{ user.subscribedUsers.count }}</span>
+							Devs</p>
+					</div>
+
+					<div class="profils-count">
+						<p>
+							<span class="bold">32</span>
+							Ressources Disponibles</p>
+					</div>
+
+					<div class="profils-count">
+						<p>Abonné à
+							<span class="bold">12 348 235</span>
+							Devs</p>
+					</div>
+				</div>
+
+				<div class="profil-slug">
+					<p class="t-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+						                        amet asperiores blanditiis et facere fugiat impedit itaque iure magnam modi officia
+						                        officiis perspiciatis quisquam similique suscipit tempore ut veniam, voluptatibus?
+					</p>
+				</div>
+			</div>
+
+		</div>
+
+
+		{{ include('components/_section.html.twig',{
         title: 'Mes ressources',
         subTitle: 'bllsdlclscl',
         resources: user.resources
     }) }}
+
+	</main>
 
 {% endblock %}
 

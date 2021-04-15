@@ -1,0 +1,17 @@
+{% extends 'admin.html.twig' %}
+
+
+
+{% block body %}
+
+    <div class="ui grid stackable padded">
+        <div class="column">
+            {{ include('components/_flashes.html.twig') }}
+
+            {{ include('admin/category/_form.html.twig') }}
+            <div class="link-auth">
+                <p><a href="{{ path('admin_category_index') }}">Retour au catégorie</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

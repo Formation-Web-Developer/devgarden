@@ -36,12 +36,12 @@ class ResourceRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    public function waitingResources()
+    public function getResourceByState(int $state)
     {
         return $this->createQueryBuilder('r')
             ->select('r')
             ->where('r.validation = :validation')
-            ->setParameter('validation', State::WAITING)
+            ->setParameter('validation', $state)
             ->getQuery()
             ->getResult()
             ;

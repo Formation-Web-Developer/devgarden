@@ -16,20 +16,35 @@
         </div>
         <div class="menu">
             <a class="item">
-                <div><i class="cogs icon"></i>Settings</div>
-            </a>
-            <a class="item">
-                <div><i class="users icon"></i>Team</div>
+                <div><i class="users icon"></i>Équipe</div>
             </a>
         </div>
     </div>
+
     <div class="item">
         <div class="header">
-            Modération
+            Utilisateurs
         </div>
         <div class="menu">
-            <a class="item {{ setActive('admin_waiting_resources') }}" href="{{ path('admin_waiting_resources') }}">
-                <div><i class="hourglass start icon"></i>Ressources en attente</div>
+            <a class="item {{ setActive('admin_user_index') }}" href="{{ path('admin_user_index') }}">
+                <div><i class="users icon"></i>Liste</div>
+            </a>
+        </div>
+    </div>
+
+    <div class="item">
+        <div class="header">
+            Ressources
+        </div>
+        <div class="menu">
+            <a class="item {{ setActive('admin_resource_inline') }}" href="{{ path('admin_resource_inline') }}">
+                <div><i class="check icon"></i>En ligne</div>
+            </a>
+            <a class="item {{ setActive('admin_resource_waiting') }}" href="{{ path('admin_resource_waiting') }}">
+                <div><i class="hourglass start icon"></i>En attente</div>
+            </a>
+            <a class="item {{ setActive('admin_resource_denied') }}" href="{{ path('admin_resource_denied') }}">
+                <div><i class="times icon"></i>Refusé</div>
             </a>
         </div>
     </div>
@@ -42,60 +57,9 @@
             <a href="{{ path('admin_category_index') }}" class="item {{ setActive('admin_category_index') }}">
                 <div><i class="folder icon"></i>Liste</div>
             </a>
-        </div>
-    </div>
-
-    <a href="#" class="item">
-        <div>
-            <i class="icon chart line"></i>
-            Charts
-        </div>
-    </a>
-
-    <a class="item">
-        <div>
-            <i class="icon lightbulb"></i>
-            Apps
-        </div>
-    </a>
-    <div class="item">
-        <div class="header">Other</div>
-        <div class="menu">
-            <a href="#" class="item">
-                <div>
-                    <i class="icon envelope"></i>
-                    Messages
-                </div>
+            <a href="{{ path('admin_category_new') }}" class="item {{ setActive('admin_category_new') }}">
+                <div><i class="plus icon"></i>Ajouter</div>
             </a>
-
-            <a href="#" class="item">
-                <div>
-                    <i class="icon calendar alternate"></i>
-                    Calendar
-                </div>
-            </a>
-        </div>
-    </div>
-
-    <div class="item">
-        <form action="#">
-            <div class="ui mini action input">
-                <input type="text" placeholder="Search..." />
-                <button class="ui mini icon button">
-                    <i class=" search icon"></i>
-                </button>
-            </div>
-        </form>
-    </div>
-    <div class="ui segment inverted">
-        <div class="ui tiny olive inverted progress">
-            <div class="bar" style="width: 54%"></div>
-            <div class="label">Monthly Bandwidth</div>
-        </div>
-
-        <div class="ui tiny teal inverted progress">
-            <div class="bar" style="width:78%"></div>
-            <div class="label">Disk Usage</div>
         </div>
     </div>
 </div>

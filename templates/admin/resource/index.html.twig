@@ -14,12 +14,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for resource in waitingResource %}
+                {% for resource in resources %}
                     <tr>
                         <td>{{ resource.user.name }}</td>
                         <td>{{ resource.name }}</td>
                         <td>
-                            <a href="{{ path('admin_show_waiting_resources', { id: resource.id }) }}">
+                            <a href="{{ path('admin_resource_show', { id: resource.id }) }}">
                                 <i class="eye icon"></i>
                             </a>
                         </td>
@@ -27,6 +27,10 @@
                 {% endfor %}
                 </tbody>
             </table>
+
+            <div class="navigation">
+                {{ knp_pagination_render(resources) }}
+            </div>
         </div>
     </div>
 {% endblock %}

@@ -605,6 +605,42 @@ header {
     margin: 10px;
 }
 
+/*------- Page Profil --------*/
+.bold{
+    font-weight: bold;
+}
+.profil-img{
+    width: 120px;
+    border-radius: 60px;
+    margin-right: 20px;
+}
+.profil-right{
+    margin-right: auto;
+}
+.user-btns div{
+    margin-bottom: 6px;
+}
+.user-btns a{
+    color: var(--secondary);
+}
+.profils-count{
+    padding-bottom: 4px;
+    border-bottom: rgb(150, 150, 150) 2px solid;
+}
+.profils-count p{
+    margin: 0;
+    padding-top: 16px;
+}
+.bottom-profil{
+    padding-bottom: 25px;
+}
+.profil-slug{
+    padding-top: 30px;
+}
+.main-profil{
+    color: var(--secondary);
+}
+
 /*------- Historique des Versions --------*/
 
 .main-pns{
@@ -663,12 +699,6 @@ header {
 /*--------- Alert box ----------*/
 .ui.icon.message>.icon:not(.close){
     margin-right: .6em!important;
-}
-
-/*--------- Page Profil ---------*/
-
-.name-user {
-    color: var(--secondary);
 }
 
 
@@ -753,6 +783,25 @@ header {
         display: none;
     }
 
+    /*---- Page Profil -----*/
+    .profils-count{
+        border: none;
+    }
+    .border-pc{
+        border-bottom: rgb(150, 150, 150) 2px solid;
+        display: flex;
+        justify-content: space-around;
+    }
+    .flex-profil{
+        display: flex;
+    }
+    .pc-right{
+        padding-left: 20px;
+    }
+    .bottom-profil{
+        width: 30%;
+    }
+
 }
 @media (max-width: 768px){
 
@@ -760,6 +809,11 @@ header {
 
     .img-pn{
         display: none;
+    }
+
+    /*---- Page Profil -----*/
+    .border-pc{
+        border: none;
     }
 }
 

@@ -1,0 +1,15 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Edit Category{% endblock %}
+
+{% block body %}
+    <div class="ui grid stackable padded">
+        <div class="column">
+            {{ include('admin/category/_form.html.twig', {'button_label': 'Update'}) }}
+
+            <a href="{{ path('admin_category_index') }}">Retour au catégorie</a>
+
+            {{ include('admin/category/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}
