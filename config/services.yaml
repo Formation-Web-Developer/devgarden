@@ -6,10 +6,12 @@
 parameters:
 
 services:
-    twig.extension:
-        class: App\Twig\CategoryExtension
-#        tags:
-#            - { name: twig.extension}
+    App\Twig\RouteExtension:
+        tags: [ twig.extension ]
+        arguments: [ "@request_stack"]
+    App\Twig\CategoryExtension:
+        tags: [ twig.extension ]
+
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
