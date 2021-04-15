@@ -66,6 +66,7 @@ class PatchNote
     public function __construct()
     {
         $this->created_at = new \DateTime();
+        $this->latest = false;
     }
 
     public function getId(): ?int

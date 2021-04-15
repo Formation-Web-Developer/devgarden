@@ -77,7 +77,10 @@ class Resource
      */
     private $subscribeResources;
 
-    private ?PatchNote $latest = null;
+    /**
+     * @var PatchNote|bool|null
+     */
+    private $latest = null;
 
     /**
      * @ORM\Column(type="integer")
@@ -300,7 +303,10 @@ class Resource
         return $this;
     }
 
-    public function getLatest(): ?PatchNote
+    /**
+     * @return PatchNote|bool|null
+     */
+    public function getLatest()
     {
         if (is_null($this->latest)) {
             $this->latest = $this->getPatchNotes()

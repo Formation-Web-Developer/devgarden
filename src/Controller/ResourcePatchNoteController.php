@@ -31,10 +31,11 @@ class ResourcePatchNoteController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($patchNote);
             $patchNote->setLink('');
             $patchNote->setSlug($slugify->slugify($patchNote->getVersion()));
             $patchNote->setResource($resource);
+            
+            $entityManager->persist($patchNote);
             $entityManager->flush();
 
             return $this->redirectToRoute('patch_notes_index', [
