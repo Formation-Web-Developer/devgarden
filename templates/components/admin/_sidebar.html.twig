@@ -2,7 +2,7 @@
     <div class="item">
         <div class="header">General</div>
         <div class="menu">
-            <a class="item">
+            <a class="item" href="{{ path('admin') }}">
                 <div>
                     <i class="icon tachometer alternate"></i>
                     Dashboard
@@ -20,6 +20,16 @@
             </a>
             <a class="item">
                 <div><i class="users icon"></i>Team</div>
+            </a>
+        </div>
+    </div>
+    <div class="item">
+        <div class="header">
+            Modération
+        </div>
+        <div class="menu">
+            <a class="item" href="{{ path('admin_waiting_resources') }}">
+                <div><i class="hourglass start icon"></i>Ressources en attente</div>
             </a>
         </div>
     </div>

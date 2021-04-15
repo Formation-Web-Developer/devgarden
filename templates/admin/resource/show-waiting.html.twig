@@ -1,0 +1,36 @@
+{% extends 'admin.html.twig' %}
+
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+
+
+
+
+
+
+<div class="ui container my-3">
+        <div class="ui segment t-justify">
+                <div>
+                        <h2>{{ resource.name }}</h2>
+                        <div class="ui label floated right">{{ resource.validation|stateName }}</div>
+                </div>
+                <div class="content">
+                        <p>Crée par : {{ resource.user.name }}</p>
+                        <p>Categorie : {{ resource.category.name }}</p>
+                        <p>Slug : {{ resource.slug }}</p>
+                </div>
+                <div class="ui segment t-justify">
+                        {{ resource.description }}
+                </div>
+                <div class="ui segment t-justify">
+                        {{ resource.content }}
+                </div>
+                <div class="flex-center">
+                        {{ form(form) }}
+                </div>
+        </div>
+</div>
+{% endblock %}

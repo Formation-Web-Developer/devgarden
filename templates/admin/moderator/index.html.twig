@@ -1,0 +1,32 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Hello ModeratorController!{% endblock %}
+
+{% block body %}
+    <div class="ui grid stackable padded">
+        <div class="column">
+            <table class="ui celled striped table">
+                <thead>
+                    <tr>
+                        <th>Utilisateur</th>
+                        <th>Ressource</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for resource in waitingResource %}
+                    <tr>
+                        <td>{{ resource.user.name }}</td>
+                        <td>{{ resource.name }}</td>
+                        <td>
+                            <a href="{{ path('admin_show_waiting_resources', { id: resource.id }) }}">
+                                <i class="eye icon"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

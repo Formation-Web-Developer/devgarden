@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Resource;
+use App\Utils\State;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -29,9 +30,21 @@ class ResourceRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('r')
             ->select('r')
             ->setMaxResults(8)
+            ->where('r.validation = :validation')
+            ->setParameter('validation', State::VALIDATED)
             ->getQuery()
             ->getResult()
         ;
+    }
+    public function waitingResources()
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r')
+            ->where('r.validation = :validation')
+            ->setParameter('validation', State::WAITING)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     public function getByCategoryAndSlug(string $categorySlug, string $resourceSlug): ?\App\Entity\Resource
