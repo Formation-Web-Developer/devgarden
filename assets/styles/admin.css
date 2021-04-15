@@ -29,6 +29,11 @@ body ::-webkit-scrollbar {
     margin-top: 40px;
 }
 
+/* Card */
+.ui.fluid.card {
+    height: 100%;
+}
+
 @media (min-width: 768px) {
     .ui.vertical.menu.sidebar-menu {
         visibility: visible;
