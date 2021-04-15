@@ -28,8 +28,14 @@
                         </div>
                     </div>
                     <div class="extra content">
-                        <div class="ui two buttons">
-                            <div class="ui {{ color }} button">Voir plus</div>
+                        <div class="ui three buttons">
+                            <a href="{{ path('category_resource', {
+                                category_slug: category.slug
+                            }) }}" class="ui {{ color }} button"><i class="eye icon"></i></a>
+                            <a href="{{ path('admin_category_edit', {
+                                id: category.id
+                            } ) }}" class="ui {{ color }} button"><i class="edit icon"></i></a>
+                            {{ include('admin/category/_delete_form.html.twig') }}
                         </div>
                     </div>
                 </div>
