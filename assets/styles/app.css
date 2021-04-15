@@ -49,6 +49,7 @@ a{
 
 body {
     background-color: var(--primary);
+    height: auto;
 }
 
 /*------- Generics Class --------*/
@@ -138,6 +139,11 @@ body {
 }
 
 /*------- Header --------*/
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
 .menu-header {
     background-color: var(--tier);
     display: flex;
