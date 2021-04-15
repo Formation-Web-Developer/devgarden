@@ -7,8 +7,6 @@
         <div class="ui very padded text container segment">
             {{ include('components/_flashes.html.twig') }}
             <form method="post">
-
-
                 {% if app.user %}
                     <div class="mb-3">
                         <p>Vous êtes connectez en tant que : {{ app.user.username }} !</p>
