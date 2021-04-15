@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Form\CategoryType;
+use App\Repository\CategoryRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,9 +19,15 @@ class CategoryController extends AbstractController
     /**
      * @Route("/", name="index", priority=5)
      */
-    public function index(): Response
+    public function index(PaginatorInterface $paginator, CategoryRepository $repository, Request $request): Response
     {
-        return $this->render('admin/category/index.html.twig');
+        return $this->render('admin/category/index.html.twig', [
+            'categories' => $paginator->paginate(
+                $repository->findAll(),
+                $request->query->get('page', 1),
+                $this->getParameter('pagination.admin.categories')
+            )
+        ]);
     }
 
     /**
