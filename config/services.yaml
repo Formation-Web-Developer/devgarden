@@ -13,6 +13,8 @@ services:
     App\Twig\RouteExtension:
         tags: [ twig.extension ]
         arguments: [ "@request_stack"]
+    App\Twig\RoleExtension:
+        tags: [ twig.extension ]
 
     # default configuration for services in *this* file
     _defaults:
