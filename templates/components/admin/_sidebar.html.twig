@@ -25,11 +25,11 @@
     </div>
     <div class="item">
         <div class="header">
-            Modération
+            Ressources
         </div>
         <div class="menu">
-            <a class="item {{ setActive('admin_waiting_resources') }}" href="{{ path('admin_waiting_resources') }}">
-                <div><i class="hourglass start icon"></i>Ressources en attente</div>
+            <a class="item {{ setActive('admin_resource_waiting') }}" href="{{ path('admin_resource_waiting') }}">
+                <div><i class="hourglass start icon"></i>En attente</div>
             </a>
         </div>
     </div>
@@ -41,6 +41,9 @@
         <div class="menu">
             <a href="{{ path('admin_category_index') }}" class="item {{ setActive('admin_category_index') }}">
                 <div><i class="folder icon"></i>Liste</div>
+            </a>
+            <a href="{{ path('admin_category_new') }}" class="item {{ setActive('admin_category_new') }}">
+                <div><i class="plus icon"></i>Ajouter</div>
             </a>
         </div>
     </div>

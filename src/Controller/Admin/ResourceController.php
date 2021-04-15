@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Form\ValidatorType;
 use App\Repository\ResourceRepository;
@@ -11,22 +11,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin", name="admin_")
+ * @Route("/admin/ressources", name="admin_resource_")
  */
-class ModeratorController extends AbstractController
+class ResourceController extends AbstractController
 {
     /**
-     * @Route("/ressources/en-attente", name="waiting_resources", priority="5")
+     * @Route("/en-attente", name="waiting", priority="5")
      */
     public function waitingResource(ResourceRepository $resourceRepository): Response
     {
-        return $this->render('admin/moderator/index.html.twig', [
+        return $this->render('admin/resource/waiting/index.html.twig', [
             'waitingResource' => $resourceRepository->waitingResources(),
         ]);
     }
 
     /**
-     * @Route("/ressources/en-attente/{id}", name="show_waiting_resources", priority="3")
+     * @Route("/en-attente/{id}", name="show_waiting", priority="3")
      */
     public function showWaitingResource(\App\Entity\Resource $resource, Request $request): Response
     {
@@ -48,7 +48,7 @@ class ModeratorController extends AbstractController
                     $this->addFlash('warning','La Ressource est en attente');
             }
         }
-        return $this->render('admin/resource/show-waiting.html.twig', [
+        return $this->render('admin/resource/waiting/show-waiting.html.twig', [
             'resource' => $resource,
             'form'     => $form->createView()
         ]);
