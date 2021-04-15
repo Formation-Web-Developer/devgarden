@@ -8,7 +8,7 @@ parameters:
 services:
     App\Twig\RouteExtension:
         tags: [ twig.extension ]
-        arguments: [ "@router"]
+        arguments: [ "@request_stack"]
     App\Twig\CategoryExtension:
         tags: [ twig.extension ]
 
