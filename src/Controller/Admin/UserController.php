@@ -59,9 +59,4 @@ class UserController extends AbstractController
         $this->addFlash('success', 'Le role de '.$user->getName().' a bien été mis à jour !');
         return $this->redirectToRoute('admin_user_index');
     }
-
-    private function getAndCheckFormUpdateRole(array $users): array
-    {
-        return [];
-    }
 }
