@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Utils\Role;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,23 +15,38 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserController extends AbstractController
 {
+    private UserRepository $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * @Route("/", name="index", priority=5)
      */
-    public function index(UserRepository $repository): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
         return $this->render('admin/user/index.html.twig', [
-            'users' => $repository->findAll()
+            'users' => $paginator->paginate(
+                $this->userRepository->findAll(),
+                $request->query->get('page', 1),
+                $this->getParameter('pagination.admin.users')
+            )
         ]);
     }
 
     /**
      * @Route("/search/{search}", name="search", priority=3)
      */
-    public function search(UserRepository $repository, string $search = ''): Response
+    public function search(PaginatorInterface $paginator, Request $request, string $search = ''): Response
     {
         return $this->render('admin/user/index.html.twig', [
-            'users' => $repository->searchByName($search),
+            'users' => $paginator->paginate(
+                $this->userRepository->searchByName($search),
+                $request->query->get('page', 1),
+                $this->getParameter('pagination.admin.users')
+            ),
             'search' => $search
         ]);
     }
