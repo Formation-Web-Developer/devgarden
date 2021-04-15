@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>{% block title %}Welcome! admin{% endblock %}</title>
+
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('admin') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+            {{ encore_entry_script_tags('admin') }}
+        {% endblock %}
+    </head>
+    <body>
+        {% block sidebar %}
+            {{ include('components/admin/_sidebar.html.twig') }}
+        {% endblock %}
+        {% block header %}
+            {{ include('components/admin/_header.html.twig') }}
+        {% endblock %}
+
+        {% block body %}
+
+        {% endblock %}
+    </body>
+</html>
