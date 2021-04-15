@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Resource;
+use App\Utils\State;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -28,11 +30,56 @@ class ResourceRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('r')
             ->select('r')
             ->setMaxResults(8)
+            ->where('r.validation = :validation')
+            ->setParameter('validation', State::VALIDATED)
             ->getQuery()
             ->getResult()
         ;
     }
+    public function waitingResources()
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r')
+            ->where('r.validation = :validation')
+            ->setParameter('validation', State::WAITING)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
+    public function getByCategoryAndSlug(string $categorySlug, string $resourceSlug): ?\App\Entity\Resource
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r', 'c', 'u')
+            ->join('r.category', 'c')
+            ->join('r.user', 'u')
+            ->where('r.slug = :resource_slug')
+            ->andWhere('c.slug = :category_slug')
+            ->setParameters([
+                'category_slug' => $categorySlug,
+                'resource_slug' => $resourceSlug
+            ])
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @return Resource[]
+     */
+    function getResourceByCategoryLimit(string $categorySlug, int $limit = 8, int $offset = 0): array
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r', 'c')
+            ->join('r.category', 'c')
+            ->where('c.slug = :slug')
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->setParameters([
+                'slug' => $categorySlug
+            ])
+            ->getQuery()
+            ->getResult();
+    }
 
     /*
     public function findOneBySomeField($value): ?Resource

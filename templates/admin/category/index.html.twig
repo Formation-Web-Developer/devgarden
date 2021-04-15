@@ -1,0 +1,39 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Catégories{% endblock %}
+
+{% block body %}
+    <div class="ui grid stackable padded">
+        {% for category in getCategories() %}
+            {% set color = random([
+                'red', 'blue', 'orange', 'yellow', 'olive', 'green', 'teal', 'violet',
+                'purple', 'pink', 'brown', 'black'
+            ]) %}
+            <div class="four wide computer eight wide tablet sixteen wide mobile column">
+                <div class="ui fluid card">
+                    <div class="content">
+                        <div class="ui right floated header {{ color }}">
+                            <i class="folder icon"></i>
+                        </div>
+                        <div class="header">
+                            <div class="ui {{ color }} header">
+                                {{ category.name }}
+                            </div>
+                        </div>
+                        <div class="meta">
+                            catégorie
+                        </div>
+                        <div class="description">
+                            {{ category.description }}
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <div class="ui two buttons">
+                            <div class="ui {{ color }} button">Voir plus</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

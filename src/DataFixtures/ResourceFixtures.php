@@ -26,6 +26,7 @@ class ResourceFixtures extends Fixture implements DependentFixtureInterface
                     ->setSlug($slugify->slugify($name))
                     ->setUser($this->getReference('user_'.random_int(1,5)))
                     ->setCategory($this->getReference('category_'.random_int(1,10)))
+                    ->setValidation(random_int(-1,1))
             ;
             $manager->persist($resource);
             $this->addReference('resource_'.$i, $resource);

@@ -66,6 +66,7 @@ class PatchNote
     public function __construct()
     {
         $this->created_at = new \DateTime();
+        $this->latest = false;
     }
 
     public function getId(): ?int
@@ -157,7 +158,7 @@ class PatchNote
         return $this;
     }
 
-    public function getResource(): ?Resource
+    public function getResource(): ?\App\Entity\Resource
     {
         return $this->resource;
     }

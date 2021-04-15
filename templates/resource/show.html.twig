@@ -33,8 +33,8 @@
                     </div>
                 {% endif %}
                 <div class="buttons">
-                    <a href="#" class="like success">{{ include('components/svg/_hearth.html.twig') }} Recommender</a>
-                    <a href="#" class="like error">{{ include('components/svg/_breakhearth.html.twig') }} Ne pas recommender</a>
+                    <a href="#" class="like success">{{ include('components/svg/_hearth.html.twig') }} Recommander</a>
+                    <a href="#" class="like error">{{ include('components/svg/_breakhearth.html.twig') }} Ne pas recommander</a>
                 </div>
             </div>
         </div>
@@ -68,7 +68,11 @@
                     {% if resource.latest %}
                         <tr>
                             <td>Dernière version</td>
-                            <td>{{ resource.latest.version }}</td>
+                            <td><a href="{{ path('patch_notes_show', {
+                                    'category_slug' : resource.category.slug,
+                                    'resource_slug' : resource.slug,
+                                    'patch_note_slug' : resource.latest.slug
+                                }) }}">{{ resource.latest.version }}</a></td>
                         </tr>
                         <tr>
                             <td>Dernière mise à jour</td>
@@ -100,41 +104,28 @@
 
             <div class="comment-form">
                 {% if app.user %}
-                    <form action="#" class="ui form">
+                    <form action="{{ path('resource_send_comment', {
+                        category_slug: resource.category.slug,
+                        resource_slug: resource.slug
+                    }) }}" class="ui form" data-type="commentForm" data-target="commentList" method="post">
                         <div class="field">
-                            <textarea rows="2" placeholder="Laisser un commentaire..."></textarea>
+                            <textarea name="message" rows="2" placeholder="Laisser un commentaire..."></textarea>
                         </div>
-                        <button class="ui submit button"><i class="paper plane icon"></i>Submit</button>
+                        <div class="field">
+                            <button class="ui submit button"><i class="paper plane icon"></i>Submit</button>
+                        </div>
                     </form>
                 {% else %}
                     Veuillez-vous <a href="{{ path('user_login') }}">connecter</a> pour poser un commentaire.
                 {% endif %}
             </div>
 
-            {% for comment in resource.comments %}
-                <div class="comment">
-                    <a class="avatar">
-                        <img src="https://picsum.photos/75/75" alt="...">
-                    </a>
-                    <div class="content">
-                        <a class="#">{{ comment.author.name }}</a>
-                        <div class="metadata">
-                            <span class="date">{{ comment.createdAt.format('d/m/Y à H:i') }}</span>
-                        </div>
-                        <div class="text">
-                            {{ comment.comment|nl2br }}
-                        </div>
-                        {#<div class="actions">
-                            <a class="reply">Répondre</a>
-                        </div>#}
-                    </div>
-                </div>
-            {% else %}
-                <div class="no-comment">
-                    Pas de commentaire...
-                </div>
-            {% endfor %}
+            <div id="commentList" data-type="commentList" data-url="{{ path('resource_comments', {
+                category_slug: resource.category.slug,
+                resource_slug: resource.slug
+            }) }}"></div>
 
+            {{ include('components/ajax/_comment.html.twig') }}
         </div>
     </div>
 {% endblock %}

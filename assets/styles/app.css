@@ -9,7 +9,7 @@
 }
 
 /*------- Reset CSS --------*/
-button {
+button, .button-five {
     background-color: var(--five);
     color: var(--secondary);
     border: none;
@@ -17,7 +17,7 @@ button {
     padding: .5rem 1rem;
     transition: .3s;
 }
-button:hover {
+button, .button-five:hover {
     background-color: var(--five-hover);
     cursor: pointer;
 }
@@ -49,6 +49,7 @@ a{
 
 body {
     background-color: var(--primary);
+    height: auto;
 }
 
 /*------- Generics Class --------*/
@@ -138,6 +139,11 @@ body {
 }
 
 /*------- Header --------*/
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
 .menu-header {
     background-color: var(--tier);
     display: flex;
@@ -161,18 +167,22 @@ body {
     top: 8px;
 }
 
-.menu-header .menu {
+.menu-header #headerMenu {
     display: none;
-    margin: 0;
-    padding: .7rem 0;
     position: absolute;
     top: 100%;
-    background-color: var(--tier);
+    left: 0;
     width: 100%;
     z-index: 10;
 }
 
-.menu-header .menu.active {
+.menu-header .menu {
+    margin: 0;
+    padding: .7rem 0;
+    background-color: var(--tier);
+}
+
+.menu-header #headerMenu.active {
     display: block;
 }
 
@@ -183,6 +193,21 @@ body {
 
 .menu-header .menu .menu-item a {
     color: inherit;
+}
+
+.menu-header .menu .menu-item .item-image {
+    display: flex;
+    align-items: center;
+}
+
+.menu-header .menu .menu-item .item-image img {
+    width: 2rem;
+    border-radius: 50%;
+    padding-right: .5rem;
+}
+
+.menu-header .menu .menu-item .sign.out{
+    color: #db2828;
 }
 
 /*--------- SubHeader --------*/
@@ -317,16 +342,27 @@ body {
 }
 
 .card .content .title:before {
-    margin-left: 110px;
+
     content: "";
 }
-.content .title {
+.card .content .title {
+    margin-left: 110px;
     font-weight: 700;
     font-size: 1.28571429em;
-    margin-top: .8rem;
     line-height: 1.5;
     color: var(--five);
 }
+
+.card .content .subtitle {
+    font-size: 1rem;
+    font-style: italic;
+    margin: 0;
+}
+
+.card .content .subtitle a {
+    color: var(--quart)!important;
+}
+
 .ui.card .content {
     color: var(--secondary);
 }
@@ -524,6 +560,89 @@ body {
     color: var(--five);
 }
 
+.ui.comments.resource-comments #commentList {
+    padding: 4rem 0 0;
+}
+
+/*------- Patch Notes --------*/
+.main-pn{
+    color: var(--secondary);
+}
+.title-pn, .btns-pn{
+    display: flex;
+    align-items: center;
+}
+.bar-title-pn{
+    height: 3px;
+    background-color: var(--secondary);
+    width: 50%;
+}
+.title-pn h1{
+    padding: 6px;
+    text-align: center;
+}
+.center-pn{
+    text-align: center;
+    justify-content: center;
+}
+.slug-pn{
+    padding-top: 70px;
+    color: var(--five);
+    padding-bottom: 20px;
+    border-bottom: gray 2px solid;
+    font-weight: bold;
+    font-size: 114%;
+}
+.img-pn{
+    text-align: center;
+}
+.img-pn img{
+    width: 220px;
+    padding: 10px;
+}
+.btn-pn a, .btn-pn button{
+    display: block;
+    margin: 10px;
+}
+
+/*------- Historique des Versions --------*/
+
+.main-pns{
+    color: var(--secondary);
+}
+.subheader-pns{
+    text-align: center;
+    background-color: var(--tier);
+    padding: 30px;
+}
+.bar-pns{
+    height: 3px;
+    width: auto;
+    background-color: var(--secondary);
+    margin: 20px;
+}
+.subheader-pns p{
+    font-size: 120%;
+}
+.description-pns{
+    padding: 15px 0px 35px 0px;
+    font-style: italic;
+    font-size: 110%;
+}
+.version-pns{
+    font-weight: bold;
+    font-size: 210%;
+    padding-top: 20px;
+}
+.bars-pns{
+    width: 100%;
+    height: 3px;
+    margin-top: 90px;
+    background-color: rgb(150, 150, 150);
+}
+
+
+
 /*------- Progress Bar --------*/
 
 .progress {
@@ -539,6 +658,11 @@ body {
 
 .progress.success {
     background-color: #21ba45;
+}
+
+/*--------- Alert box ----------*/
+.ui.icon.message>.icon:not(.close){
+    margin-right: .6em!important;
 }
 
 /*--------- Page Profil ---------*/
@@ -572,9 +696,16 @@ body {
 }
 
 @media (min-width: 768px) {
-    .menu-header .menu, .menu-header .menu.active {
+    .menu-header #headerMenu {
         display: flex;
+        justify-content: space-between;
+        width: 100%;
         position: unset;
+    }
+
+    .menu-header .menu,
+    .menu-header #headerMenu.active{
+        display: flex;
     }
 
     .menu-header .item-bars{
@@ -615,6 +746,20 @@ body {
 
     .resource-content .resource-misc .resource-image {
         display: block;
+    }
+
+    /*---- Patch Note -----*/
+    .phone-pn{
+        display: none;
+    }
+
+}
+@media (max-width: 768px){
+
+    /*---- Patch Note -----*/
+
+    .img-pn{
+        display: none;
     }
 }
 
