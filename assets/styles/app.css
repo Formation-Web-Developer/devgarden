@@ -9,7 +9,7 @@
 }
 
 /*------- Reset CSS --------*/
-button {
+button, .button-five {
     background-color: var(--five);
     color: var(--secondary);
     border: none;
@@ -17,7 +17,7 @@ button {
     padding: .5rem 1rem;
     transition: .3s;
 }
-button:hover {
+button, .button-five:hover {
     background-color: var(--five-hover);
     cursor: pointer;
 }
@@ -604,6 +604,45 @@ header {
     display: block;
     margin: 10px;
 }
+
+/*------- Historique des Versions --------*/
+
+.main-pns{
+    color: var(--secondary);
+}
+.subheader-pns{
+    text-align: center;
+    background-color: var(--tier);
+    padding: 30px;
+}
+.bar-pns{
+    height: 3px;
+    width: auto;
+    background-color: var(--secondary);
+    margin: 20px;
+}
+.subheader-pns p{
+    font-size: 120%;
+}
+.description-pns{
+    padding: 15px 0px 35px 0px;
+    font-style: italic;
+    font-size: 110%;
+}
+.version-pns{
+    font-weight: bold;
+    font-size: 210%;
+    padding-top: 20px;
+}
+.bars-pns{
+    width: 100%;
+    height: 3px;
+    margin-top: 90px;
+    background-color: rgb(150, 150, 150);
+}
+
+
+
 /*------- Progress Bar --------*/
 
 .progress {
