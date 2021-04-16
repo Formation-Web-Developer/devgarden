@@ -19,27 +19,25 @@
             </div>
         {% endif %}
         {% for patchNote in resource.patchNotes %}
+            <div>
+                <div>
+                       <p class="version-pns">{{ patchNote.version }}</p>
+                </div>
 
-<div>
-                        <div>
-                               <p class="version-pns">{{ patchNote.version }}</p>
-                        </div>
+                <div>
+                    <p class="description-pns">
+                    {{ patchNote.description }}
+                    </p>
+                </div>
 
-                        <div>
-                            <p class="description-pns">
-                            {{ patchNote.description }}
-                            </p>
-                        </div>
+                <a class="button-five" href="{{ path('patch_notes_show', {
+                        category_slug: patchNote.resource.category.slug ,
+                        resource_slug: patchNote.resource.slug ,
+                        patch_note_slug: patchNote.slug
+                    }) }}">Voir Plus</a>
 
-                        <a class="button-five" href="{{ path('patch_notes_show', {
-                                category_slug: patchNote.resource.category.slug ,
-                                resource_slug: patchNote.resource.slug ,
-                                patch_note_slug: patchNote.slug
-                            }) }}">Voir Plus</a>
-
-                        <div class="bars-pns"></div>
-
-</div>
+                <div class="bars-pns"></div>
+            </div>
 
         {% endfor %}
     </div>

@@ -11,7 +11,7 @@
                 <img src="https://picsum.photos/75/75" alt="">
                 <div class="resource-title">
                     <h1>{{ resource.name }}</h1>
-                    <p>publié par <a href="{{ path('user_show', { name: resource.user.name }) }}">{{ resource.user.name }}</a></p>
+                    <p>Publié par <a href="{{ path('user_show', { name: resource.user.name }) }}">{{ resource.user.name }}</a></p>
                 </div>
             </div>
             <div class="resource-link">
@@ -112,7 +112,7 @@
                             <textarea name="message" rows="2" placeholder="Laisser un commentaire..."></textarea>
                         </div>
                         <div class="field">
-                            <button class="ui submit button"><i class="paper plane icon"></i>Submit</button>
+                            <button class="ui submit button"><i class="paper plane icon"></i> Envoyer</button>
                         </div>
                     </form>
                 {% else %}
