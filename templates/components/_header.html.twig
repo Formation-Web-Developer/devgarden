@@ -18,7 +18,7 @@
                         <i class="dropdown icon"></i>
                         <div class="menu">
                             {% for category in getCategories() %}
-                                <a class="item" href="#">{{ category.name }}</a>
+                                <a class="item" href="{{ path('category_resource', {category_slug: category.slug}) }}">{{ category.name }}</a>
                             {% endfor %}
                         </div>
                     </div>

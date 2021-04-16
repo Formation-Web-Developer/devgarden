@@ -21,30 +21,30 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
+                'label' => 'Nom',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez renseigner un nom !'
                     ]),
                     new Length([
                         'min' => 3,
-                        'minMessage' => 'min {{ limit }} caractères',
+                        'minMessage' => 'Veuillez renseigner minimum {{ limit }} caractères',
                         'max' => 50,
-                        'maxMessage' => 'max {{ limit }} caractères'
+                        'maxMessage' => 'Veuillez renseigner maximum {{ limit }} caractères'
                     ])
                 ]
             ])
             ->add('email', EmailType::class)
             ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
+                'label' => 'Mot de passe',
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Entrer un Mot de passe !',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Votre mot de passe doit comporter au moins {{ limit }} caractères !',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
@@ -54,7 +54,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Veuillez agréer nos conditions.',
                     ]),
                 ],
             ])

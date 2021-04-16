@@ -14,56 +14,43 @@
 				<div class="profil-right">
 					<h1>{{ user.name }}</h1>
 
-
 					{% if not self %}
 						<button class="ui button floated right">S'abonner</button>
 					{% endif %}
 
-
 					{% if self %}
 						<div class="ui compact menu user-btns">
 							<div class="link item">
-								<a href="#!">
-									Editer Mon Profil
-								</a>
+								<a href="#">Editer Mon Profil</a>
 							</div>
-
 							<div class="link item">
 								<a href="{{ path('user_resource_new') }}">
 									Ajouter une ressource
 								</a>
 							</div>
 						</div>
-
-
 					{% endif %}
 				</div>
 			</div>
 			<div class="pc-right">
 				<div class="border-pc">
 					<div class="profils-count">
-						<p>Suivi par
-							<span class="bold">{{ user.subscribedUsers.count }}</span>
-							Devs</p>
+						<p>Suivi par <span class="bold">{{ user.subscribedUsers.count }}</span> Utilisateurs</p>
 					</div>
 
 					<div class="profils-count">
-						<p>
-							<span class="bold">32</span>
-							Ressources Disponibles</p>
+						<p><span class="bold">{{ user.resources.count }}</span> Ressources Disponibles</p>
 					</div>
 
 					<div class="profils-count">
-						<p>Abonné à
-							<span class="bold">12 348 235</span>
-							Devs</p>
+						<p>Abonné à <span class="bold"></span> Utilisateurs</p>
 					</div>
 				</div>
 
 				<div class="profil-slug">
 					<p class="t-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
-																								                        amet asperiores blanditiis et facere fugiat impedit itaque iure magnam modi officia
-																								                        officiis perspiciatis quisquam similique suscipit tempore ut veniam, voluptatibus?
+						amet asperiores blanditiis et facere fugiat impedit itaque iure magnam modi officia
+						officiis perspiciatis quisquam similique suscipit tempore ut veniam, voluptatibus?
 					</p>
 				</div>
 			</div>
@@ -75,8 +62,6 @@
         title: 'Mes ressources',
         subTitle: 'bllsdlclscl',
         resources: user.resources
-    }) }}
-
+    	}) }}
 	</main>
-
 {% endblock %}
