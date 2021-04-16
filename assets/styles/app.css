@@ -613,16 +613,13 @@ header {
 .bold{
     font-weight: bold;
 }
+.profil-right > .menu{
+    background-color: var(--five)!important;
+}
 .profil-img{
     width: 120px;
     border-radius: 60px;
     margin-right: 20px;
-}
-.profil-right{
-    margin-right: auto;
-}
-.user-btns div{
-    margin-bottom: 6px;
 }
 .user-btns a{
     color: var(--secondary);
@@ -644,7 +641,6 @@ header {
 .main-profil{
     color: var(--secondary);
 }
-
 /*------- Historique des Versions --------*/
 
 .main-pns{
@@ -802,23 +798,8 @@ header {
     .pc-right{
         padding-left: 20px;
     }
-    .bottom-profil{
-        width: 30%;
-    }
 
-}
-@media (max-width: 768px){
 
-    /*---- Patch Note -----*/
-
-    .img-pn{
-        display: none;
-    }
-
-    /*---- Page Profil -----*/
-    .border-pc{
-        border: none;
-    }
 }
 
 @media (max-width: 993px) {

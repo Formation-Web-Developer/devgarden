@@ -14,20 +14,28 @@
 				<div class="profil-right">
 					<h1>{{ user.name }}</h1>
 
+
 					{% if not self %}
 						<button class="ui button floated right">S'abonner</button>
 					{% endif %}
 
 
 					{% if self %}
-						<div class="user-btns">
-							<div class="button-five">
-								<a href="{{ path('user_resource_new') }}">Ajouter une ressource</a>
+						<div class="ui compact menu user-btns">
+							<div class="link item">
+								<a href="#!">
+									Editer Mon Profil
+								</a>
 							</div>
-							<div class="button-five">
-								<a href="#">Editer mon profil</a>
+
+							<div class="link item">
+								<a href="{{ path('user_resource_new') }}">
+									Ajouter une ressource
+								</a>
 							</div>
 						</div>
+
+
 					{% endif %}
 				</div>
 			</div>
@@ -54,8 +62,8 @@
 
 				<div class="profil-slug">
 					<p class="t-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
-						                        amet asperiores blanditiis et facere fugiat impedit itaque iure magnam modi officia
-						                        officiis perspiciatis quisquam similique suscipit tempore ut veniam, voluptatibus?
+																								                        amet asperiores blanditiis et facere fugiat impedit itaque iure magnam modi officia
+																								                        officiis perspiciatis quisquam similique suscipit tempore ut veniam, voluptatibus?
 					</p>
 				</div>
 			</div>
@@ -72,5 +80,3 @@
 	</main>
 
 {% endblock %}
-
-
