@@ -2,8 +2,11 @@
     {{ form_widget(form) }}
     <div class="field">
         <label for="">Catégories</label>
-        <select class="ui search dropdown select-categories" name="categories" data-url="{{ path('api_categories') }}">
-
+        <select class="ui search dropdown select-categories" name="categories"
+                data-url="{{ path('api_categories') }}">
+            {% if resource %}
+                <option value="{{ resource.category.id }}" selected>{{ resource.category.name }}</option>
+            {% endif %}
         </select>
     </div>
     <div class="field">

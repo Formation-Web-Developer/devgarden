@@ -16,6 +16,9 @@ class CategoryType extends AbstractType
         $builder
             ->add('name',TextType::class)
             ->add('description',TextType::class)
+            ->add('slug', TextType::class, [
+                'label' => 'URL'
+            ])
         ;
     }
 

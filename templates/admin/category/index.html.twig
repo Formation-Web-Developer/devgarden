@@ -29,9 +29,9 @@
                     </div>
                     <div class="extra content">
                         <div class="ui three buttons">
-                            <a href="{{ path('category_resource', {
+                            <a href="{{ category.slug ? path('category_resource', {
                                 category_slug: category.slug
-                            }) }}" class="ui {{ color }} button"><i class="eye icon"></i></a>
+                            }) : '#' }}" class="ui {{ color }} button"><i class="eye icon"></i></a>
                             <a href="{{ path('admin_category_edit', {
                                 id: category.id
                             } ) }}" class="ui {{ color }} button"><i class="edit icon"></i></a>
