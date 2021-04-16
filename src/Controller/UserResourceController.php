@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Resource;
 use App\Form\ResourceType;
+use App\Repository\CategoryRepository;
 use Cocur\Slugify\Slugify;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +21,7 @@ class UserResourceController extends AbstractController
     /**
      * @Route("/nouveau", name="new", methods={"GET","POST"}, priority=5)
      */
-    public function new(Request $request): Response
+    public function new(CategoryRepository $repository, Request $request): Response
     {
         $slugify = new Slugify();
         $resource = new Resource();
@@ -27,13 +29,28 @@ class UserResourceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $resource->setUser($this->getUser());
-            $resource->setSlug($slugify->slugify($resource->getName()));
-            $entityManager->persist($resource);
-            $entityManager->flush();
+            if (!$request->request->has('categories')) {
+                $this->addFlash('error', 'La catégorie n\'a pas été précisé.');
+            } else {
+                $entityManager = $this->getDoctrine()->getManager();
+                $category_id = $request->request->get('categories');
+                $category = $repository->find($category_id);
 
-            return $this->redirectToRoute('user_profile');
+                if ($category === null) {
+                    $category = (new Category())
+                        ->setName($category_id);
+                    $entityManager->persist($category);
+                }
+
+                $resource->setUser($this->getUser())
+                    ->setSlug($slugify->slugify($resource->getName()))
+                    ->setCategory($category);
+
+                $entityManager->persist($resource);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('user_profile');
+            }
         }
 
         return $this->render('resource/new.html.twig', [

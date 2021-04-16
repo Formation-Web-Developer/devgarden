@@ -91,10 +91,25 @@ jQuery($ => {
 
     $('*[data-type="commentList"]').each((index, element) => reloadComments($(element)));
 
+    const selectCategories = $('.ui.search.dropdown.select-categories');
+
+    selectCategories.parents('form').submit((e) => {
+        $(e.target.querySelectorAll('[name]'))
+            .each((index, element) => {
+                if(element.name === 'categories') {
+                    $(element).append(
+                        $('<option>')
+                            .val($(e.target).find('.item.active.selected').attr('data-value'))
+                            .attr('selected', 'true')
+                            .text('')
+                    );
+                }
+            });
+    })
+
     const history = [];
     let defaultValue = null;
-    $('.ui.search.dropdown.select-categories')
-        .dropdown({
+    selectCategories.dropdown({
             minCharacters: 0 ,
             onNoResults: function (text) {
                 if (defaultValue !== null){
@@ -107,9 +122,14 @@ jQuery($ => {
             }
         })
         .keydown(function (e){
+            const select = $(this);
+            const input = select.find('input.search');
+            const lastText = input.val();
             setTimeout(() => {
-                const select = $(this);
-                let text = select.find('input.search').val();
+                let text = input.val();
+                if(lastText === text) {
+                    return;
+                }
                 if (text.length === 0){
                     setTimeout(()=> {
                         select.dropdown('change values', defaultValue);
@@ -118,7 +138,7 @@ jQuery($ => {
                 }
                 updateCategories(select,text,select.find('select').attr('data-url'))
 
-            },10)
+            },50)
         })
     function updateCategories(select, text, url, isDefault = false) {
         if (history[text]) {
@@ -127,7 +147,7 @@ jQuery($ => {
                 // if (isDefault){
                 //     select.dropdown('toggle')
                 // }
-            },100)
+            },1)
 
             return;
         }
@@ -138,19 +158,19 @@ jQuery($ => {
             try {
                 const results = [];
                 const json = JSON.parse(response);
-
+                let toggle = false;
                 if (json.length === 0) {
                     results.push({
-                        name: text,
-                        value: 'new catégorie',
+                        name: text + ' (Nouvelle catégorie)',
+                        value: text
                         // selected: true
                     })
+                    toggle = true;
                 } else {
                     json.forEach((option, index) => {
                         results.push({
                             name: option.name,
-                            value: option.id,
-                            // selected: index === 0
+                            value: option.id
                         });
                     })
                 }
@@ -159,12 +179,11 @@ jQuery($ => {
                 if (text.length === 0 && isDefault){
                     defaultValue = results;
                 }
-                if (isDefault){
+                if (isDefault || toggle){
                     select.dropdown('toggle')
                 }
                 history[text] = results;
-            } catch (e) {
-            }
+            } catch (e) {}
         })
     }
 })

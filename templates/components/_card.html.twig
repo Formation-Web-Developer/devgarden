@@ -16,7 +16,11 @@
 		<h2 class="title">{{ resource.name }}</h2>
 
 		<h3 class="subtitle">
-			<a href="{{ path('category_resource', {category_slug: resource.category.slug}) }}">{{ resource.category.name }}</a>
+			{% if resource.category.slug %}
+				<a href="{{ path('category_resource', {category_slug: resource.category.slug}) }}">
+					{{ resource.category.name }}
+				</a>
+			{% endif %}
 		</h3>
 		<div class="description">
 			{{ resource.description }}
@@ -29,5 +33,11 @@
 			{% endif %}
 		</div>
 	</div>
-	<a class="ui bottom attached button" href="{{ path('resource_show',{ category_slug : resource.category.slug, resource_slug : resource.slug, }) }}">Voir Plus</a>
+	{% if resource.category.slug %}
+		<a class="ui bottom attached button"
+		   href="{{ path('resource_show',{
+			   category_slug : resource.category.slug,
+			   resource_slug : resource.slug, })
+		   }}">Voir Plus</a>
+	{% endif %}
 </div>
