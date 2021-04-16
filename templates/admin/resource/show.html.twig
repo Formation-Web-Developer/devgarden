@@ -4,33 +4,39 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-
-
-
-
-
-
-
-<div class="ui container my-3">
+    <div class="ui container my-3">
         <div class="ui segment t-justify">
+            <div>
+                <h2>{{ resource.name }}</h2>
+                <div class="ui label floated right">{{ resource.validation|stateName }}</div>
+            </div>
+            <div class="content">
+                <p>Crée par : {{ resource.user.name }}</p>
                 <div>
-                        <h2>{{ resource.name }}</h2>
-                        <div class="ui label floated right">{{ resource.validation|stateName }}</div>
+                    <p>Catégorie: {{ resource.category.name }}</p>
+                    {% if not resource.category.slug %}
+                        <div class="ui label">
+                            Catégorie en attente de validation !
+                            <a href="{{ path('admin_category_edit', {
+                                id: resource.category.id
+                            }) }}"><i class="arrow right green icon"></i></a>
+                        </div>
+                    {% endif %}
                 </div>
-                <div class="content">
-                        <p>Crée par : {{ resource.user.name }}</p>
-                        <p>Categorie : {{ resource.category.name }}</p>
-                        <p>Slug : {{ resource.slug }}</p>
-                </div>
-                <div class="ui segment t-justify">
-                        {{ resource.description }}
-                </div>
-                <div class="ui segment t-justify">
-                        {{ resource.content }}
-                </div>
+                <p>Slug : {{ resource.slug }}</p>
+            </div>
+            <div class="ui segment t-justify">
+                {{ resource.description }}
+            </div>
+            <div class="ui segment t-justify">
+                {{ resource.content }}
+            </div>
+
+            {% if resource.category.slug %}
                 <div class="flex-center">
-                        {{ form(form) }}
+                    {{ form(form) }}
                 </div>
+            {% endif %}
         </div>
-</div>
+    </div>
 {% endblock %}
