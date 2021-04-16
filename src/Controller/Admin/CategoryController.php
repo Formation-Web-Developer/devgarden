@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use Cocur\Slugify\Slugify;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,11 +37,13 @@ class CategoryController extends AbstractController
     public function new(Request $request): Response
     {
         $category = new Category();
+        $slugify = new Slugify();
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $category->setSlug($slugify->slugify($category->getName()));
             $entityManager->persist($category);
             $entityManager->flush();
             return $this->redirectToRoute('admin_category_index');
