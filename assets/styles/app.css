@@ -564,6 +564,10 @@ header {
     padding: 4rem 0 0;
 }
 
+.ui.selection.dropdown>.dropdown.icon {
+    padding: 0;
+}
+
 /*------- Patch Notes --------*/
 .main-pn{
     color: var(--secondary);

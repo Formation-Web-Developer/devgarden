@@ -1,4 +1,12 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="ui button">{{ button_label|default('Save') }}</button>
+    <div class="field">
+        <label for="">Catégories</label>
+        <select class="ui search dropdown select-categories" name="categories" data-url="{{ path('api_categories') }}">
+
+        </select>
+    </div>
+    <div class="field">
+        <button class="ui button">{{ button_label|default('Save') }}</button>
+    </div>
 {{ form_end(form) }}

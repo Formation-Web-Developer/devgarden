@@ -90,4 +90,81 @@ jQuery($ => {
     }
 
     $('*[data-type="commentList"]').each((index, element) => reloadComments($(element)));
+
+    const history = [];
+    let defaultValue = null;
+    $('.ui.search.dropdown.select-categories')
+        .dropdown({
+            minCharacters: 0 ,
+            onNoResults: function (text) {
+                if (defaultValue !== null){
+
+                    return
+                }
+                defaultValue = false;
+                const select = $(this)
+                updateCategories(select,text,select.attr('data-url'),true)
+            }
+        })
+        .keydown(function (e){
+            setTimeout(() => {
+                const select = $(this);
+                let text = select.find('input.search').val();
+                if (text.length === 0){
+                    setTimeout(()=> {
+                        select.dropdown('change values', defaultValue);
+                    },100)
+                    return
+                }
+                updateCategories(select,text,select.find('select').attr('data-url'))
+
+            },10)
+        })
+    function updateCategories(select, text, url, isDefault = false) {
+        if (history[text]) {
+            setTimeout(()=> {
+                select.dropdown('change values', history[text]);
+                // if (isDefault){
+                //     select.dropdown('toggle')
+                // }
+            },100)
+
+            return;
+        }
+        $.ajax({
+            url: url + '/' + encodeURI(text),
+            method: 'GET'
+        }).done(response => {
+            try {
+                const results = [];
+                const json = JSON.parse(response);
+
+                if (json.length === 0) {
+                    results.push({
+                        name: text,
+                        value: 'new catégorie',
+                        // selected: true
+                    })
+                } else {
+                    json.forEach((option, index) => {
+                        results.push({
+                            name: option.name,
+                            value: option.id,
+                            // selected: index === 0
+                        });
+                    })
+                }
+
+                select.dropdown('change values', results);
+                if (text.length === 0 && isDefault){
+                    defaultValue = results;
+                }
+                if (isDefault){
+                    select.dropdown('toggle')
+                }
+                history[text] = results;
+            } catch (e) {
+            }
+        })
+    }
 })

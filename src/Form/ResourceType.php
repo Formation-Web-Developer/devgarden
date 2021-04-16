@@ -25,11 +25,11 @@ class ResourceType extends AbstractType
             ->add('content', TextareaType::class, [
                 'label' => 'Contenu'
             ])
-            ->add('category',EntityType::class, [
-                'label' => 'Catégorie',
-                'class' => Category::class,
-                'choice_label' => 'name'
-            ])
+//            ->add('category',EntityType::class, [
+//                'label' => 'Catégorie',
+//                'class' => Category::class,
+//                'choice_label' => 'name'
+//            ])
         ;
     }
 
