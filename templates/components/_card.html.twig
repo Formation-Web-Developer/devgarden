@@ -1,33 +1,43 @@
 <div class="ui fluid card">
-    <div class="header-card" style="background-image: url(https://picsum.photos/250/75);">
-        <div class="ui labeled input download-card">
-            <div class="ui label">
-                <i class="download icon"></i>
-            </div>
-            <div class="count">4 121 212</div>
-        </div>
-    </div>
+	<div class="header-card" style="background-image: url(https://picsum.photos/250/75);">
+		<div class="ui labeled input download-card">
+			<div class="ui label">
+				<i class="download icon"></i>
+			</div>
+			<div class="count">4 121 212</div>
+		</div>
+	</div>
 
-    <div class="picture">
-        <img src="https://picsum.photos/75/75" alt="">
-    </div>
+	<div class="picture">
+		<img src="https://picsum.photos/75/75" alt="">
+	</div>
 
-    <div class="content">
-        <h2 class="title">{{ resource.name }}</h2>
+	<div class="content">
+		<h2 class="title">{{ resource.name }}</h2>
 
-        <h3 class="subtitle">
-            <a href="{{ path('category_resource', {category_slug: resource.category.slug}) }}">{{ resource.category.name }}</a>
-        </h3>
-        <div class="description">
-            {{ resource.description }}
-            {% if app.user and app.user.id == resource.user.id  %}
-                <a href="{{ path('user_resource_edit', { id: resource.id }) }}">Editer</a>
-                {{ include('resource/_delete_form.html.twig') }}
-            {% endif %}
-        </div>
-    </div>
-    <a class="ui bottom attached button" href="{{ path('resource_show',{
-        category_slug : resource.category.slug,
-        resource_slug : resource.slug,
-    }) }}">Voir Plus</a>
+		<h3 class="subtitle">
+			{% if resource.category.slug %}
+				<a href="{{ path('category_resource', {category_slug: resource.category.slug}) }}">
+					{{ resource.category.name }}
+				</a>
+			{% endif %}
+		</h3>
+		<div class="description">
+			{{ resource.description }}
+			{% if app.user and app.user.id == resource.user.id  %}
+				<a class="bold" href="{{ path('user_resource_edit', { id: resource.id }) }}">
+					Editer</a>
+				<div class="flex-center">
+					{{ include('resource/_delete_form.html.twig') }}
+				</div>
+			{% endif %}
+		</div>
+	</div>
+	{% if resource.category.slug %}
+		<a class="ui bottom attached button"
+		   href="{{ path('resource_show',{
+			   category_slug : resource.category.slug,
+			   resource_slug : resource.slug, })
+		   }}">Voir Plus</a>
+	{% endif %}
 </div>

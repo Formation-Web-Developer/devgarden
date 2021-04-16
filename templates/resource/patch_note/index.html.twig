@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}PatchNote index{% endblock %}
+{% block title %}Version {{ patchNote.version }}{% endblock %}
 
 {% block subHeader %}{% endblock %}
 
@@ -37,7 +37,7 @@
                     <a href="{{ path('patch_note_edit', {
                         id: patchNote.id ,
                         slug: patchNote.resource.slug
-                    }) }}"><i class="edit icon"></i> Editer</a>
+                    }) }}"><i class="edit icon"></i> Éditer</a>
                 </div>
                 {{ include('resource/patch_note/_delete_form.html.twig') }}
 

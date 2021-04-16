@@ -5,7 +5,7 @@
             <a class="item {{ setActive('admin') }}" href="{{ path('admin') }}">
                 <div>
                     <i class="icon tachometer alternate"></i>
-                    Dashboard
+                    Tableau de bord
                 </div>
             </a>
         </div>
@@ -56,6 +56,9 @@
         <div class="menu">
             <a href="{{ path('admin_category_index') }}" class="item {{ setActive('admin_category_index') }}">
                 <div><i class="folder icon"></i>Liste</div>
+            </a>
+            <a class="item " href="">
+                <div><i class="hourglass start icon"></i>En attente</div>
             </a>
             <a href="{{ path('admin_category_new') }}" class="item {{ setActive('admin_category_new') }}">
                 <div><i class="plus icon"></i>Ajouter</div>

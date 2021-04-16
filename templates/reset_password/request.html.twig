@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %}Réinitialisez votre mot de passe{% endblock %}
 
 {% block body %}
 <div class="full-center">
     <div class="ui very padded text container segment">
         {{ include('components/_flashes.html.twig') }}
-        <h1>Reset your password</h1>
-
+        <h1>Réinitialisez votre mot de passe</h1>
         {{ form(requestForm) }}
         <div class="link-auth">
             <p><a href="{{ path('user_login') }}">Connexion</a></p>
