@@ -8,22 +8,14 @@
         <div class="ui segment t-justify">
             <div>
                 <h2>{{ resource.name }}</h2>
-                <div class="ui label floated right">{{ resource.validation|stateName }}</div>
+                <div class="ui label floated right">
+                    {{ resource.validation|iconRole|raw }} {{ resource.validation|stateName }}
+                </div>
             </div>
             <div class="content">
-                <p>Crée par : {{ resource.user.name }}</p>
-                <div>
-                    <p>Catégorie: {{ resource.category.name }}</p>
-                    {% if not resource.category.slug %}
-                        <div class="ui label">
-                            Catégorie en attente de validation !
-                            <a href="{{ path('admin_category_edit', {
-                                id: resource.category.id
-                            }) }}"><i class="arrow right green icon"></i></a>
-                        </div>
-                    {% endif %}
-                </div>
-                <p>Slug : {{ resource.slug }}</p>
+                <p>Crée par : <a href="{{ path('user_show', {
+                        name: resource.user.name
+                }) }}">{{ resource.user.name }}</a></p>
             </div>
             <div class="ui segment t-justify">
                 {{ resource.description }}
@@ -32,11 +24,33 @@
                 {{ resource.content }}
             </div>
 
-            {% if resource.category.slug %}
-                <div class="flex-center">
-                    {{ form(form) }}
+            <div class="flex-center">
+                {{ form_start(form) }}
+                <div class="field">
+
+                    {% if not resource.category.slug %}
+                        <div class="ui label">
+                            Catégorie en attente de validation !
+                            <a href="{{ path('admin_category_edit', {
+                                id: resource.category.id
+                            }) }}"><i class="arrow right green icon"></i></a>
+                        </div>
+                    {% endif %}
+
+                    <label for="">Catégorie</label>
+                    <select class="ui search dropdown select-categories" name="categories"
+                            data-url="{{ path('api_categories') }}">
+                        {% if resource and resource.category %}
+                            <option value="{{ resource.category.id }}" selected>{{ resource.category.name }}</option>
+                        {% endif %}
+                    </select>
                 </div>
-            {% endif %}
+                {{ form_widget(form) }}
+                <div class="field">
+                    <button type="submit" class="ui button">Mettre à jour</button>
+                </div>
+                {{ form_end(form) }}
+            </div>
         </div>
     </div>
 {% endblock %}

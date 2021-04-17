@@ -12,3 +12,4 @@ import 'semantic-ui-css/semantic.min.css';
 import './bootstrap';
 import 'semantic-ui-css/semantic.min';
 import './javascript/app';
+import './javascript/categories'

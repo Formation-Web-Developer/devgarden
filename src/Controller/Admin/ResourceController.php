@@ -2,7 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Category;
 use App\Form\ValidatorType;
+use App\Repository\CategoryRepository;
 use App\Repository\ResourceRepository;
 use App\Utils\State;
 use Knp\Component\Pager\PaginatorInterface;
@@ -68,24 +70,54 @@ class ResourceController extends AbstractController
     /**
      * @Route("/{id}", name="show", priority=2)
      */
-    public function showWaitingResource(\App\Entity\Resource $resource, Request $request): Response
+    public function showWaitingResource(CategoryRepository $repository,\App\Entity\Resource $resource, Request $request): Response
     {
         $form = $this->createForm(ValidatorType::class, $resource);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($resource);
-            $entityManager->flush();
-            switch ($resource->getValidation()) {
-                case State::VALIDATED:
-                    $this->addFlash('success','La Ressource a bien été accepté');
-                    break;
-                case State::REFUSED:
-                    $this->addFlash('error','La Ressource a bien été refusé');
-                    break;
-                default:
-                    $this->addFlash('warning','La Ressource est en attente');
+            if (!$request->request->has('categories')) {
+                $this->addFlash('error', 'La catégorie n\'a pas été précisé.');
+            } else {
+                $entityManager = $this->getDoctrine()->getManager();
+                $category_id = $request->request->get('categories');
+                $category = $repository->find($category_id);
+
+                if ($category === null) {
+                    $category = (new Category())
+                        ->setName($category_id);
+                    $entityManager->persist($category);
+                    $resource->setValidation(State::WAITING);
+                    $this->addFlash('success', 'La catégorie a bien été créé. Veuillez remplir les champs avant de valider la ressource.');
+
+                    $resource->setCategory($category);
+
+                    $entityManager->persist($resource);
+                    $entityManager->flush();
+
+                    return $this->redirectToRoute('admin_category_edit', [
+                        'id' => $category->getId()
+                    ]);
+                }
+
+                if (empty($category->getSlug()) && $resource->getValidation() === State::VALIDATED) {
+                    $resource->setValidation(State::WAITING);
+                    $this->addFlash('warning', 'Vous devez d\'abord enregistrer la catégorie avant d\'accepter la ressource.');
+                }
+                $resource->setCategory($category);
+                $entityManager->persist($resource);
+                $entityManager->flush();
+
+                switch ($resource->getValidation()) {
+                    case State::VALIDATED:
+                        $this->addFlash('success','La Ressource a bien été accepté');
+                        break;
+                    case State::REFUSED:
+                        $this->addFlash('error','La Ressource a bien été refusé');
+                        break;
+                    default:
+                        $this->addFlash('warning','La Ressource est en attente');
+                }
             }
         }
         return $this->render('admin/resource/show.html.twig', [

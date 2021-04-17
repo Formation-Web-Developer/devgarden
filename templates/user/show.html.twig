@@ -59,9 +59,10 @@
 
 
 		{{ include('components/_section.html.twig',{
-        title: 'Mes ressources',
-        subTitle: 'bllsdlclscl',
-        resources: user.resources
+			title: 'Mes ressources',
+			subTitle: 'bllsdlclscl',
+			resources: resources,
+			paginate: true
     	}) }}
 	</main>
 {% endblock %}

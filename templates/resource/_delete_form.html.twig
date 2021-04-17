@@ -1,4 +1,4 @@
 <form method="post" action="{{ path('user_resource_delete', {id: resource.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer la publication ?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ resource.id) }}">
-    <button class="ui button">Supprimer</button>
+    <button class="button-five"><i class="trash icon"></i>Supprimer</button>
 </form>

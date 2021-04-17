@@ -10,6 +10,7 @@
                     <tr>
                         <th>Utilisateur</th>
                         <th>Ressource</th>
+                        <th>Catégorie</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -18,11 +19,16 @@
                     <tr>
                         <td>{{ resource.user.name }}</td>
                         <td>{{ resource.name }}</td>
+                        <td>{{ resource.category.name }}</td>
                         <td>
                             <a href="{{ path('admin_resource_show', { id: resource.id }) }}">
                                 <i class="eye icon"></i>
                             </a>
                         </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">Aucune ressource trouvée...</td>
                     </tr>
                 {% endfor %}
                 </tbody>

@@ -83,9 +83,11 @@ class ResourceRepository extends ServiceEntityRepository
             ->join('r.user', 'u')
             ->where('r.slug = :resource_slug')
             ->andWhere('c.slug = :category_slug')
+            ->andWhere('r.validation = :validation')
             ->setParameters([
                 'category_slug' => $categorySlug,
-                'resource_slug' => $resourceSlug
+                'resource_slug' => $resourceSlug,
+                'validation'    => State::VALIDATED
             ])
             ->getQuery()
             ->getOneOrNullResult();

@@ -19,6 +19,34 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
+    public function getCategories()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.slug is not NULL')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getCategoriesLimit()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.slug is not NULL')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getWaitingCategories()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.slug is NULL')
+            ->getQuery()
+            ->getResult();
+    }
+
      /**
       * @return Category[] Returns an array of Category objects
       */

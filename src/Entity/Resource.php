@@ -7,9 +7,11 @@ use App\Utils\State;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=ResourceRepository::class)
+ * @UniqueEntity(fields={"category", "slug"}, message="Il y a déjà une resource avec cet URL relier à cette même catégorie")
  */
 class Resource
 {
