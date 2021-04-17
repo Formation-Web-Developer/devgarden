@@ -12,3 +12,4 @@ import './styles/admin.css';
 import './bootstrap';
 import 'semantic-ui-css/semantic.min';
 import './javascript/admin';
+import './javascript/categories'

@@ -15,4 +15,13 @@
                 </div>
             {% endfor %}
     </div>
+    {% if paginate ?? false %}
+        <div class="ui very padded grid">
+            <div class="column">
+                <div class="pagination">
+                    {{ knp_pagination_render(resources) }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
 </div>

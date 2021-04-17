@@ -16,6 +16,7 @@ button, .button-five {
     border-radius: .3rem;
     padding: .5rem 1rem;
     transition: .3s;
+    margin: .5rem;
 }
 button, .button-five:hover {
     background-color: var(--five-hover);
@@ -315,7 +316,14 @@ header {
 .card .ui.label {
     background-color: var(--five);
     color: var(--secondary);
+    display: inline-block;
+    margin: .5rem 0;
 }
+
+.card .ui.error.label {
+    background-color: #db2828;
+}
+
 .card .download-card {
     background-color: var(--tier);
     color: var(--secondary);
@@ -359,7 +367,7 @@ header {
     margin: 0;
 }
 
-.card .content .subtitle a {
+.card .content .subtitle a, .card .content .subtitle span {
     color: var(--quart)!important;
 }
 
@@ -506,7 +514,8 @@ header {
 .resource-content .resource-misc .buttons {
     display: flex;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     margin: 1rem 0 .5rem;
 }
 

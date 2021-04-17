@@ -30,6 +30,6 @@ class CategoryExtension extends AbstractExtension
      */
     public function categories(): array
     {
-        return $this->categoryRepository->findAll();
+        return $this->categoryRepository->getCategoriesLimit();
     }
 }

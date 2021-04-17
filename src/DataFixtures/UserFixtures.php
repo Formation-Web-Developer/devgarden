@@ -22,7 +22,7 @@ class UserFixtures extends Fixture
                 ->setName('Admin')
                 ->setEmail('admin@devgarden.fr')
                 ->setIsVerified(true)
-                ->setRoles(['ROLE_ADMIN'])
+                ->setRoles(['ROLE_SUPER_ADMIN'])
         ;
         $user->setPassword($this->encoder->encodePassword($user,'formationwebdeveloper'));
         $manager->persist($user);
