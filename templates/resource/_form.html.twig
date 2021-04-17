@@ -1,13 +1,20 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
     <div class="field">
-        <label for="">Catégories</label>
-        <select class="ui search dropdown select-categories" name="categories"
-                data-url="{{ path('api_categories') }}">
-            {% if resource %}
-                <option value="{{ resource.category.id }}" selected>{{ resource.category.name }}</option>
-            {% endif %}
-        </select>
+        {% if select_category %}
+            <label for="">Catégorie</label>
+            <select class="ui search dropdown select-categories" name="categories"
+                    data-url="{{ path('api_categories') }}">
+                {% if resource and resource.category %}
+                    <option value="{{ resource.category.id }}" selected>{{ resource.category.name }}</option>
+                {% endif %}
+            </select>
+        {% else %}
+            <label class="required" for="">Catégorie</label>
+            <div class="ui segment">
+                <p>{{ resource.category.name }}</p>
+            </div>
+        {% endif %}
     </div>
     <div class="field">
         <button class="ui button">{{ button_label|default('Ajouter') }}</button>

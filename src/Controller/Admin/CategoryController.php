@@ -24,7 +24,21 @@ class CategoryController extends AbstractController
     {
         return $this->render('admin/category/index.html.twig', [
             'categories' => $paginator->paginate(
-                $repository->findAll(),
+                $repository->getCategories(),
+                $request->query->get('page', 1),
+                $this->getParameter('pagination.admin.categories')
+            )
+        ]);
+    }
+
+    /**
+     * @Route("/en-attente", name="waiting", priority=5)
+     */
+    public function waiting(PaginatorInterface $paginator, CategoryRepository $repository, Request $request): Response
+    {
+        return $this->render('admin/category/index.html.twig', [
+            'categories' => $paginator->paginate(
+                $repository->getWaitingCategories(),
                 $request->query->get('page', 1),
                 $this->getParameter('pagination.admin.categories')
             )
