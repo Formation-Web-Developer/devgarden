@@ -7,6 +7,18 @@
 {% block body %}
 <main class="main-pn">
     <div class="ui container my-3">
+        <div>
+            <a href="{{ path('resource_show', {
+                category_slug: patchNote.resource.category.slug,
+                resource_slug: patchNote.resource.slug
+            }) }}"><i class="arrow left icon"></i>Retour sur la ressource</a>
+        </div>
+        <div>
+            <a href="{{ path('patch_notes_index', {
+                category_slug: patchNote.resource.category.slug,
+                resource_slug: patchNote.resource.slug
+            }) }}"><i class="arrow left icon"></i>Retour vers les versions</a>
+        </div>
         <div class="title-pn">
             <div class="bar-title-pn"></div>
             <h1 class="color-five">Version {{ patchNote.version }}</h1>
