@@ -8,10 +8,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass=ResourceRepository::class)
  * @UniqueEntity(fields={"category", "slug"}, message="Il y a déjà une resource avec cet URL relier à cette même catégorie")
+ * @Vich\Uploadable
  */
 class Resource
 {
@@ -88,6 +91,18 @@ class Resource
      * @ORM\Column(type="integer")
      */
     private $validation;
+
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="resource_images", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
 
     public function __construct()
     {
@@ -326,6 +341,37 @@ class Resource
     public function setValidation(int $validation): self
     {
         $this->validation = $validation;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File $imageFile
+     * @return Resource
+     */
+    public function setImageFile(File $imageFile): self
+    {
+        $this->imageFile = $imageFile;
 
         return $this;
     }

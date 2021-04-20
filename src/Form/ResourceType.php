@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class ResourceType extends AbstractType
 {
@@ -24,6 +25,9 @@ class ResourceType extends AbstractType
             ])
             ->add('content', TextareaType::class, [
                 'label' => 'Contenu'
+            ])
+            ->add('imageFile', VichFileType::class, [
+                'label' => 'Image'
             ])
 //            ->add('category',EntityType::class, [
 //                'label' => 'Catégorie',
