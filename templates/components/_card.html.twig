@@ -9,7 +9,7 @@
 	</div>
 
 	<div class="picture">
-		<img src="https://picsum.photos/75/75" alt="">
+		<img src="{{ vich_uploader_asset(resource, 'imageFile') ?: 'https://picsum.photos/75/75' }}" alt="">
 	</div>
 
 	<div class="content">

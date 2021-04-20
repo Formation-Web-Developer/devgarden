@@ -8,6 +8,7 @@
             <table class="ui celled striped table">
                 <thead>
                     <tr>
+                        <th>Image</th>
                         <th>Utilisateur</th>
                         <th>Ressource</th>
                         <th>Catégorie</th>
@@ -17,6 +18,10 @@
                 <tbody>
                 {% for resource in resources %}
                     <tr>
+                        <td>
+                            <img src="{{ vich_uploader_asset(resource, 'imageFile') ?: 'https://picsum.photos/75/75' }}"
+                                 alt="{{ resource.name }}" width="50rem" height="auto" style="border-radius: 50%">
+                        </td>
                         <td>{{ resource.user.name }}</td>
                         <td>{{ resource.name }}</td>
                         <td>{{ resource.category.name }}</td>
