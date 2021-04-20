@@ -25,7 +25,7 @@ class DefaultController extends AbstractController
         ]);
     }
     /**
-     * @Route("/conditions-generales-utilsateurs", name="app_cgu")
+     * @Route("/conditions-generales-utilsateur", name="app_cgu")
      */
     public function cgu():Response
     {

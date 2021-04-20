@@ -10,7 +10,16 @@
         <h1>Inscription</h1>
         {{ include('components/_flashes.html.twig') }}
         <div class="ui divider"></div>
-        {{ form(registrationForm) }}
+        {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.name) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+        <div class="ui field">
+            <a href="{{ path('app_cgu') }}">Voir les conditions générales d'utilisation.</a>
+        </div>
+        {{ form_row(registrationForm.submit) }}
+        {{ form_end(registrationForm) }}
         <div class="link-auth">
             <p><a href="{{ path('user_login') }}">Connexion</a></p>
         </div>
