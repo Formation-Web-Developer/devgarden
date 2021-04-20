@@ -14,7 +14,7 @@
 				<div class="profil-right">
 					<h1>{{ user.name }}</h1>
 
-					{% if not self %}
+					{% if not self and app.user %}
 						<button class="ui button floated right">S'abonner</button>
 					{% endif %}
 
@@ -41,10 +41,6 @@
 					<div class="profils-count">
 						<p><span class="bold">{{ user.resources.count }}</span> Ressources Disponibles</p>
 					</div>
-
-					<div class="profils-count">
-						<p>Abonné à <span class="bold"></span> Utilisateurs</p>
-					</div>
 				</div>
 
 				<div class="profil-slug">
@@ -59,8 +55,8 @@
 
 
 		{{ include('components/_section.html.twig',{
-			title: 'Mes ressources',
-			subTitle: 'bllsdlclscl',
+			title: (self ? 'Mes ressources' : ('Ressource de ' ~ user.name)),
+			subTitle: '',
 			resources: resources,
 			paginate: true
     	}) }}

@@ -42,7 +42,7 @@
 			   category_slug : resource.category.slug,
 			   resource_slug : resource.slug, })
 		   }}">Voir Plus</a>
-	{% elseif resource.user.id == app.user.id %}
+	{% elseif app.user and resource.user.id == app.user.id %}
 		<a class="ui bottom attached button"
 		   href="{{ path('user_resource_edit', {
 			   id: resource.id

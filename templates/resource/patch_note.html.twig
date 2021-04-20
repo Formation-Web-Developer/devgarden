@@ -18,10 +18,16 @@
                 <a href="{{ path('patch_note_new', { slug: resource.slug }) }}">Ajouter une version</a>
             </div>
         {% endif %}
+        <div>
+            <a href="{{ path('resource_show', {
+                category_slug: resource.category.slug,
+                resource_slug: resource.slug
+            }) }}"><i class="arrow left icon"></i>Retour sur la ressource</a>
+        </div>
         {% for patchNote in resource.patchNotes %}
             <div>
                 <div>
-                       <p class="version-pns">{{ patchNote.version }}</p>
+                       <p class="version-pns">{{ patchNote.version }}{% if patchNote.getLatest() %} <span class="ui label">Dernière mise à jour</span> {% endif %}</p>
                 </div>
 
                 <div>

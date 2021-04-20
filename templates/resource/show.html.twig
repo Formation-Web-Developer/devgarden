@@ -32,10 +32,12 @@
                         <div class="progress success" style="width: {{ ( resource.reactions|filter(r => r.liked)|length * 100 ) / resource.reactions.count }}%"></div>
                     </div>
                 {% endif %}
-                <div class="buttons">
-                    <a href="#" class="like success">{{ include('components/svg/_hearth.html.twig') }} Recommander</a>
-                    <a href="#" class="like error">{{ include('components/svg/_breakhearth.html.twig') }} Ne pas recommander</a>
-                </div>
+                {% if app.user %}
+                    <div class="buttons">
+                        <a href="#" class="like success">{{ include('components/svg/_hearth.html.twig') }} Recommander</a>
+                        <a href="#" class="like error">{{ include('components/svg/_breakhearth.html.twig') }} Ne pas recommander</a>
+                    </div>
+                {% endif %}
             </div>
         </div>
 
@@ -58,13 +60,16 @@
                 </div>
                 <div class="buttons">
                     <button><i class="download icon"></i> Télécharger</button>
-                    {% if app.user and app.user.id == resource.user.id  %}
-                        <a class="button-five" href="{{ path('user_resource_edit', { id: resource.id }) }}">
-                            <i class="edit icon"></i> Editer
-                        </a>
-                        {{ include('resource/_delete_form.html.twig') }}
+                    {% if app.user %}
+                        {% if app.user.id == resource.user.id %}
+                            <a class="button-five" href="{{ path('user_resource_edit', { id: resource.id }) }}">
+                                <i class="edit icon"></i> Editer
+                            </a>
+                            {{ include('resource/_delete_form.html.twig') }}
+                        {% endif %}
+                        <button><i class="bullhorn icon"></i> S'abonner</button>
                     {% endif %}
-                    <button><i class="bullhorn icon"></i> S'abonner</button>
+
                 </div>
                 <table class="ui inverted definition table resource">
                     <tr>
