@@ -21,7 +21,6 @@ jQuery($ => {
         minCharacters: 0 ,
         onNoResults: function (text) {
             if (defaultValue !== null){
-
                 return
             }
             defaultValue = false;
