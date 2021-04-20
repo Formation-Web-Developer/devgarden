@@ -24,7 +24,16 @@ class UserFixtures extends Fixture
                 ->setIsVerified(true)
                 ->setRoles(['ROLE_SUPER_ADMIN'])
         ;
-        $user->setPassword($this->encoder->encodePassword($user,'formationwebdeveloper'));
+        $user->setPassword($this->encoder->encodePassword($user,'devgarden'));
+        $manager->persist($user);
+
+        $user = (new User())
+            ->setName('Modo')
+            ->setEmail('modo@devgarden.fr')
+            ->setIsVerified(true)
+            ->setRoles(['ROLE_MODERATOR'])
+        ;
+        $user->setPassword($this->encoder->encodePassword($user,'devgarden'));
         $manager->persist($user);
 
         for ($i = 1; $i < 6; $i++ ){
@@ -33,7 +42,7 @@ class UserFixtures extends Fixture
                 ->setEmail('demo'.$i.'@devgarden.fr')
                 ->setIsVerified(true)
             ;
-            $user->setPassword($this->encoder->encodePassword($user,'formationwebdeveloper'));
+            $user->setPassword($this->encoder->encodePassword($user,'devgarden'));
             $manager->persist($user);
             $this->addReference('user_'.$i,$user);
         }
