@@ -12,3 +12,4 @@ reset-password:
     success: Votre mot de passe a bien été reinitialisé.
 
 Email could not be found.: Identifiants invalides.
+Invalid credentials.: Identifiants invalides.

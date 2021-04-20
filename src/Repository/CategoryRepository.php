@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Category;
+use App\Utils\State;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -28,14 +29,30 @@ class CategoryRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getCategoriesLimit()
+    public function getCategoriesLimit(ResourceRepository $repository)
     {
-        return $this->createQueryBuilder('c')
+        $results = $this->createQueryBuilder('c')
             ->select('c')
+            ->addSelect('('.
+                $repository->createQueryBuilder('r')
+                    ->select('COUNT(r.id)')
+                    ->where('r.category = c.id')
+                    ->andWhere('r.validation = :validation')
+                    ->getQuery()
+                    ->getDQL()
+            .') AS count')
             ->where('c.slug is not NULL')
+            ->orderBy('count', 'DESC')
             ->setMaxResults(10)
+            ->setParameter('validation', State::VALIDATED)
             ->getQuery()
             ->getResult();
+
+        $categories = [];
+        foreach ($results as $result) {
+            $categories[] = $result[0];
+        }
+        return $categories;
     }
 
     public function getWaitingCategories()
