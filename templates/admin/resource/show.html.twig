@@ -7,6 +7,9 @@
     <div class="ui container my-3">
         <div class="ui segment t-justify">
             <div>
+                <img src="{{ vich_uploader_asset(resource, 'imageFile') ?: 'https://picsum.photos/75/75' }}"
+                     alt="{{ resource.name }}" width="100rem" height="auto" style="border-radius: 50%">
+
                 <h2>{{ resource.name }}</h2>
                 <div class="ui label floated right">
                     {{ resource.validation|iconRole|raw }} {{ resource.validation|stateName }}

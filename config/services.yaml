@@ -11,6 +11,8 @@ parameters:
     homepage.resources.limit: 8
     user.resources.limit: 12
 
+    app.resource.images: /assets/uploads/resources
+
 services:
     App\Twig\CategoryExtension:
         tags: [ twig.extension ]
